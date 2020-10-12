@@ -5,7 +5,6 @@ import (
 	"backend/helpers"
 	"backend/users/driver"
 	"backend/users/entity"
-	"errors"
 )
 
 type serviceImpl struct {
@@ -18,12 +17,12 @@ func NewService(repository driver.Repository) Service {
 	}
 }
 
-func (s *serviceImpl) CreateUser(auth *entity.Authentication) (*entity.User, error) {
+func (s *serviceImpl) CreateUser(auth *entity.Authentication) (*entity.User, *errorCodes.Slug) {
 	passwordHash, err := helpers.HashPassword(auth.Password)
 	if err != nil {
-		return nil, errors.New(errorCodes.PasswordHashingFailure)
+		return nil, errorCodes.NewErrPasswordHashingFailure()
 	}
-	user, err := s.repo.AddUser(&entity.User{
+	user, slug := s.repo.AddUser(&entity.User{
 		Email:        auth.Email,
 		Name:         auth.Name,
 		PasswordHash: passwordHash,
@@ -33,13 +32,13 @@ func (s *serviceImpl) CreateUser(auth *entity.Authentication) (*entity.User, err
 			Duration: 0,
 		},
 	})
-	if err != nil {
-		return nil, err
+	if slug != nil {
+		return nil, slug
 	}
 	return user, nil
 }
 
-func (s *serviceImpl) Validate(auth *entity.Authentication) (*entity.User, error) {
+func (s *serviceImpl) Validate(auth *entity.Authentication) (*entity.User, *errorCodes.Slug) {
 	user, err := s.repo.FindUserByEmail(auth.Email)
 	if err != nil {
 		return nil, err
@@ -49,11 +48,11 @@ func (s *serviceImpl) Validate(auth *entity.Authentication) (*entity.User, error
 	if isValid {
 		return user, nil
 	} else {
-		return nil, errors.New(errorCodes.InvalidPassword)
+		return nil, errorCodes.NewErrInvalidPassword()
 	}
 }
 
-func (s *serviceImpl) AddRefreshToken(user *entity.User, ip string) (*entity.RefreshToken, *entity.AccessToken, error) {
+func (s *serviceImpl) AddRefreshToken(user *entity.User, ip string) (*entity.RefreshToken, *entity.AccessToken, *errorCodes.Slug) {
 	refreshToken := &entity.RefreshToken{
 		UserId:      user.ID,
 		CreatedByIp: ip,
@@ -68,7 +67,7 @@ func (s *serviceImpl) AddRefreshToken(user *entity.User, ip string) (*entity.Ref
 	return refreshToken, accessToken, err
 }
 
-func (s *serviceImpl) RefreshToken(jwtString string) (*entity.AccessToken, error) {
+func (s *serviceImpl) RefreshToken(jwtString string) (*entity.AccessToken, *errorCodes.Slug) {
 	refreshToken, err := entity.NewRefreshTokenFromJWT(jwtString)
 	if err != nil {
 		return nil, err
@@ -93,7 +92,7 @@ func (s *serviceImpl) RefreshToken(jwtString string) (*entity.AccessToken, error
 	return accessToken, nil
 }
 
-func (s *serviceImpl) RemoveRefreshToken(jwtString string) error {
+func (s *serviceImpl) RemoveRefreshToken(jwtString string) *errorCodes.Slug {
 	refreshToken, err := entity.NewRefreshTokenFromJWT(jwtString)
 	if err != nil {
 		return err

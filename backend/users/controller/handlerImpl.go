@@ -1,12 +1,10 @@
 package controller
 
 import (
-	"backend/errorCodes"
 	"backend/helpers"
 	"backend/users/entity"
 	"backend/users/usecases"
 	"github.com/labstack/echo"
-	"log"
 	"net/http"
 )
 
@@ -31,51 +29,23 @@ func (con controller) CreateUser() func(c echo.Context) error {
 			})
 		}
 
-		log.Printf("User%v", auth)
-
 		user, err := con.userService.CreateUser(auth)
-		log.Printf("err: %v", err)
 		if err != nil {
-			switch err.Error() {
-			case errorCodes.SameEmailName:
-				return c.JSON(http.StatusBadRequest, helpers.ResponseError{
-					Message:    "Email already exists in database",
-					Resolution: "Use a unique email",
-				})
-			case errorCodes.PasswordHashingFailure:
-				return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-					Message: "Password hashing failure",
-					Error:   err,
-				})
-			default:
-				return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-					Message: "could not add user to database",
-					Error:   err,
-				})
-			}
+			return err.Response(&c)
 		}
 
 		refreshToken, accessToken, err := con.userService.AddRefreshToken(user, c.RealIP())
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-				Message: "Internal error while creating refreshToken",
-				Error:   err,
-			})
+			return err.Response(&c)
 		}
 
 		refreshTokenString, err := refreshToken.GenerateJWT()
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-				Message: "Could not generate jwt string for refreshToken",
-				Error:   err,
-			})
+			return err.Response(&c)
 		}
 		accessTokenString, err := accessToken.GenerateJWT()
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-				Message: "Could not generate jwt string for accessToken",
-				Error:   err,
-			})
+			return err.Response(&c)
 		}
 
 		return c.JSON(http.StatusCreated, helpers.Json{
@@ -99,48 +69,21 @@ func (con controller) Login() func(c echo.Context) error {
 
 		user, err := con.userService.Validate(auth)
 		if err != nil {
-			switch err.Error() {
-			case errorCodes.InvalidPassword:
-				return c.JSON(http.StatusUnauthorized, helpers.ResponseError{
-					Message:    "Incorrect Password",
-					Resolution: "Please use your correct password",
-					Error:      err,
-				})
-			case errorCodes.InvalidEmail:
-				return c.JSON(http.StatusUnauthorized, helpers.ResponseError{
-					Message:    "Incorrect Email",
-					Resolution: "Please use an email that corresponds to a user",
-					Error:      err,
-				})
-			default:
-				return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-					Message: "Database Error",
-					Error:   err,
-				})
-			}
+			return err.Response(&c)
 		}
 
 		refreshToken, accessToken, err := con.userService.AddRefreshToken(user, c.RealIP())
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-				Message: "Internal error while creating refreshToken",
-				Error:   err,
-			})
+			return err.Response(&c)
 		}
 
 		refreshTokenString, err := refreshToken.GenerateJWT()
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-				Message: "Could not generate jwt string for refreshToken",
-				Error:   err,
-			})
+			return err.Response(&c)
 		}
 		accessTokenString, err := accessToken.GenerateJWT()
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-				Message: "Could not generate jwt string for accessToken",
-				Error:   err,
-			})
+			return err.Response(&c)
 		}
 
 		return c.JSON(http.StatusCreated, helpers.Json{
@@ -164,23 +107,12 @@ func (con controller) Refresh() func(c echo.Context) error {
 		}
 		accessToken, err := con.userService.RefreshToken(body.RefreshToken)
 		if err != nil {
-			if err.Error() == errorCodes.TokenDoesNotExist {
-				return c.JSON(http.StatusUnauthorized, helpers.ResponseError{
-					Message:    "Your refresh token has been invalidated",
-					Resolution: "Please login in to get a new refresh token",
-				})
-			}
-			return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-				Message: err.Error(),
-			})
+			return err.Response(&c)
 		}
 
 		accessTokenString, err := accessToken.GenerateJWT()
 		if err != nil {
-			return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-				Message: "Could not generate tokenString",
-				Error:   err,
-			})
+			return err.Response(&c)
 		}
 		return c.JSON(http.StatusCreated, helpers.Json{
 			"message":     "Created Successfully!",
@@ -203,17 +135,7 @@ func (con controller) Logout() func(c echo.Context) error {
 
 		err := con.userService.RemoveRefreshToken(body.RefreshToken)
 		if err != nil {
-			if err.Error() == errorCodes.TokenDoesNotExist {
-				return c.JSON(http.StatusUnauthorized, helpers.ResponseError{
-					Message:    "Token doesn't exist",
-					Resolution: "Use a refresh token that exists in database",
-				})
-			} else {
-				return c.JSON(http.StatusInternalServerError, helpers.ResponseError{
-					Message: "Error while deleting token",
-					Error:   err,
-				})
-			}
+			return err.Response(&c)
 		}
 		return c.JSON(http.StatusOK, helpers.Json{
 			"message": "successfully logged out user",

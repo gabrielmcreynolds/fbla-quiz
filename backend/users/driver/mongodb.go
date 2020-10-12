@@ -4,7 +4,6 @@ import (
 	"backend/errorCodes"
 	"backend/users/entity"
 	"context"
-	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -20,17 +19,18 @@ type repo struct {
 	Database *mongo.Database
 }
 
-func (r repo) AddUser(user *entity.User) (*entity.User, error) {
+func (r repo) AddUser(user *entity.User) (*entity.User, *errorCodes.Slug) {
+	//TODO: add check to see if email is unique
 	insertResult, err := r.Database.Collection("users").InsertOne(context.Background(), *user)
 	if err != nil {
 		log.Print(err)
-		return nil, errors.New(errorCodes.DatabaseError)
+		return nil, errorCodes.NewErrDatabaseIssue()
 	}
 	user.ID = insertResult.InsertedID.(primitive.ObjectID)
 	return user, nil
 }
 
-func (r repo) FindUserByEmail(email string) (*entity.User, error) {
+func (r repo) FindUserByEmail(email string) (*entity.User, *errorCodes.Slug) {
 	user := new(entity.User)
 	err := r.Database.Collection("users").FindOne(context.Background(), bson.M{
 		"email": email,
@@ -39,14 +39,14 @@ func (r repo) FindUserByEmail(email string) (*entity.User, error) {
 	if err != nil {
 		log.Print(err)
 		if err == mongo.ErrNoDocuments {
-			return nil, errors.New(errorCodes.InvalidEmail)
+			return nil, errorCodes.NewErrInvalidEmail()
 		}
-		return nil, errors.New(errorCodes.DatabaseError)
+		return nil, errorCodes.NewErrDatabaseIssue()
 	}
 	return user, nil
 }
 
-func (r repo) FindUserById(id *primitive.ObjectID) (*entity.User, error) {
+func (r repo) FindUserById(id *primitive.ObjectID) (*entity.User, *errorCodes.Slug) {
 	user := new(entity.User)
 	err := r.Database.Collection("users").FindOne(context.Background(), bson.M{
 		"_id": id,
@@ -56,58 +56,57 @@ func (r repo) FindUserById(id *primitive.ObjectID) (*entity.User, error) {
 		log.Print(err)
 		log.Print(err.Err())
 		if err.Err() == mongo.ErrNoDocuments {
-			return nil, errors.New(errorCodes.UserDoesNotExist)
+			return nil, errorCodes.NewErrUserDoesNotExists()
 		}
-		return nil, errors.New(errorCodes.DatabaseError)
+		return nil, errorCodes.NewErrDatabaseIssue()
 	}
 	return user, nil
 }
 
-func (r repo) AddRefreshToken(token *entity.RefreshToken) (*entity.RefreshToken, error) {
+func (r repo) AddRefreshToken(token *entity.RefreshToken) (*entity.RefreshToken, *errorCodes.Slug) {
 	result, err := r.Database.Collection("refreshTokens").InsertOne(context.Background(), token)
 	if err != nil {
 		log.Print(err)
-		return nil, errors.New(errorCodes.DatabaseError)
+		return nil, errorCodes.NewErrDatabaseIssue()
 	}
 	token.ID = result.InsertedID.(primitive.ObjectID)
-	return token, err
+	return token, nil
 }
 
-func (r repo) UpdateUser(user *entity.User) error {
+func (r repo) UpdateUser(user *entity.User) *errorCodes.Slug {
 	filter := bson.D{{"_id", user.ID.String()}}
 	err := r.Database.Collection("users").FindOneAndReplace(context.Background(), filter, user).Decode(user)
 	if err != nil {
 		log.Print(err)
 		if err == mongo.ErrNoDocuments {
-			return errors.New(errorCodes.UserDoesNotExist)
+			return errorCodes.NewErrUserDoesNotExists()
 		}
 	}
 	return nil
 }
 
-func (r repo) FindRefreshTokenByID(id *primitive.ObjectID) (*entity.RefreshToken, error) {
+func (r repo) FindRefreshTokenByID(id *primitive.ObjectID) (*entity.RefreshToken, *errorCodes.Slug) {
 	refreshToken := new(entity.RefreshToken)
 	err := r.Database.Collection("refreshTokens").FindOne(context.Background(), bson.D{{"_id", id}}).Decode(refreshToken)
 	if err != nil {
 		log.Print(err)
 		if err == mongo.ErrNoDocuments {
-			return nil, errors.New(errorCodes.TokenDoesNotExist)
+			return nil, errorCodes.NewErrTokenDoesNotExist()
 		}
-		return nil, errors.New(errorCodes.DatabaseError)
+		return nil, errorCodes.NewErrDatabaseIssue()
 	}
-
 	return refreshToken, nil
 }
 
-func (r repo) DeleteRefreshToken(id *primitive.ObjectID) error {
+func (r repo) DeleteRefreshToken(id *primitive.ObjectID) *errorCodes.Slug {
 	deletedToken := new(entity.RefreshToken)
 	err := r.Database.Collection("refreshTokens").FindOneAndDelete(context.Background(), bson.D{{"_id", id}}).Decode(deletedToken)
 	if err != nil {
 		log.Print(err)
 		if err == mongo.ErrNoDocuments {
-			return errors.New(errorCodes.TokenDoesNotExist)
+			return errorCodes.NewErrTokenDoesNotExist()
 		}
-		return errors.New(errorCodes.DatabaseError)
+		return errorCodes.NewErrDatabaseIssue()
 	}
 	return nil
 }

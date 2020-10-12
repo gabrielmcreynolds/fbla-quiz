@@ -3,7 +3,6 @@ package entity
 import (
 	"backend/errorCodes"
 	"backend/helpers"
-	"errors"
 	"github.com/dgrijalva/jwt-go"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"os"
@@ -16,7 +15,7 @@ type RefreshToken struct {
 	CreatedByIp string             `json:"createdByIp" bson:"createdByIp"`
 }
 
-func (token *RefreshToken) GenerateJWT() (string, error) {
+func (token *RefreshToken) GenerateJWT() (string, *errorCodes.Slug) {
 	refreshToken := jwt.New(jwt.SigningMethodHS256)
 	claims := refreshToken.Claims.(jwt.MapClaims)
 	claims["userId"] = token.UserId.Hex()
@@ -24,15 +23,15 @@ func (token *RefreshToken) GenerateJWT() (string, error) {
 	claims["createdByIp"] = token.CreatedByIp
 	tokenString, err := refreshToken.SignedString([]byte(os.Getenv("refreshSecret")))
 	if err != nil {
-		return "", err
+		return "", errorCodes.NewErrTokenToJWT()
 	}
 	return tokenString, nil
 }
 
-func NewRefreshTokenFromJWT(tokenString string) (*RefreshToken, error) {
+func NewRefreshTokenFromJWT(tokenString string) (*RefreshToken, *errorCodes.Slug) {
 	token, err := helpers.DecodeRefreshToken(tokenString)
 	if err != nil {
-		return nil, errors.New(errorCodes.InvalidRefreshToken)
+		return nil, errorCodes.NewErrInvalidRefreshToken()
 	}
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		userId, _ := primitive.ObjectIDFromHex(claims["userId"].(string))
@@ -43,7 +42,7 @@ func NewRefreshTokenFromJWT(tokenString string) (*RefreshToken, error) {
 			CreatedByIp: claims["createdByIp"].(string),
 		}, nil
 	} else {
-		return nil, errors.New(errorCodes.InvalidRefreshToken)
+		return nil, errorCodes.NewErrInvalidRefreshToken()
 	}
 }
 
@@ -52,7 +51,7 @@ type AccessToken struct {
 	Email  string             `json:"email"`
 }
 
-func (token *AccessToken) GenerateJWT() (string, error) {
+func (token *AccessToken) GenerateJWT() (string, *errorCodes.Slug) {
 	accessToken := jwt.New(jwt.SigningMethodHS256)
 	claims := accessToken.Claims.(jwt.MapClaims)
 	claims["userId"] = token.UserID
@@ -60,7 +59,7 @@ func (token *AccessToken) GenerateJWT() (string, error) {
 	claims["exp"] = time.Now().Add(time.Minute * 15).Unix()
 	tokenString, err := accessToken.SignedString([]byte(os.Getenv("accessSecret")))
 	if err != nil {
-		return "", err
+		return "", errorCodes.NewErrTokenToJWT()
 	}
 	return tokenString, nil
 }
