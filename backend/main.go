@@ -9,6 +9,7 @@ import (
 	"github.com/labstack/gommon/log"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"os"
 	"time"
 )
 
@@ -22,7 +23,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 
 func main() {
 	// connect to db
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017/?ssl=false"))
+	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("dbString")))
 	if err != nil {
 		log.Fatal(err)
 	}

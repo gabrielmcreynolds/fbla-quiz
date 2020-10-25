@@ -12,7 +12,6 @@ import (
 
 func UserRoutes(group *echo.Group, database *mongo.Database) {
 	// setup DI
-
 	repo := driver.NewMongoRepository(database)
 	service := usecases.NewService(repo)
 	handler := controller.NewUserController(service)
