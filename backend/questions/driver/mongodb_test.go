@@ -3,6 +3,7 @@ package driver
 import (
 	"backend/helpers"
 	"context"
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
@@ -12,6 +13,7 @@ import (
 )
 
 func getDatabaseConnection() *mongo.Database {
+	godotenv.Load()
 	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("dbString")))
 	if err != nil {
 		log.Fatal(err)

@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TestServiceImpl_GetQuestions in backend/questions/usecases" type="GoTestRunConfiguration" factoryName="Go Test" nameIsGenerated="true">
+    <module name="backend" />
+    <working_directory value="$PROJECT_DIR$/backend/questions/usecases" />
+    <envs>
+      <env name="dbString" value="mongodb://localhost:27017/?ssl=false" />
+    </envs>
+    <framework value="gotest" />
+    <kind value="PACKAGE" />
+    <package value="backend/questions/usecases" />
+    <directory value="$PROJECT_DIR$/backend" />
+    <filePath value="$PROJECT_DIR$/backend" />
+    <pattern value="^\QTestServiceImpl_GetQuestions\E$" />
+    <method v="2" />
+  </configuration>
+</component>

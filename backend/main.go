@@ -1,6 +1,7 @@
 package main
 
 import (
+	"backend/questions"
 	"backend/users"
 	"context"
 	"github.com/go-playground/validator/v10"
@@ -43,6 +44,7 @@ func main() {
 	e.Use(middleware.Logger())
 
 	users.UserRoutes(e.Group("/users"), database)
+	questions.QuestionRoutes(e.Group("/questions"), database)
 
 	e.Logger.Fatal(e.Start(":8080"))
 }

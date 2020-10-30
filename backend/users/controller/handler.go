@@ -1,6 +1,8 @@
 package controller
 
-import "github.com/labstack/echo"
+import (
+	"github.com/labstack/echo"
+)
 
 type Handler interface {
 	CreateUser() func(c echo.Context) error
