@@ -4,9 +4,11 @@ import (
 	"backend/errorCodes"
 	"backend/users/entity"
 	"context"
+	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 )
 
@@ -47,15 +49,15 @@ func (r repo) FindUserByEmail(email string) (*entity.User, *errorCodes.Slug) {
 }
 
 func (r repo) FindUserById(id *primitive.ObjectID) (*entity.User, *errorCodes.Slug) {
+	fmt.Printf("id in mongo: %v\n", id)
 	user := new(entity.User)
 	err := r.Database.Collection("users").FindOne(context.Background(), bson.M{
 		"_id": id,
-	})
+	}).Decode(user)
 
-	if err.Err() != nil {
+	if err != nil {
 		log.Print(err)
-		log.Print(err.Err())
-		if err.Err() == mongo.ErrNoDocuments {
+		if err == mongo.ErrNoDocuments {
 			return nil, errorCodes.NewErrUserDoesNotExists()
 		}
 		return nil, errorCodes.NewErrDatabaseIssue()
@@ -74,8 +76,9 @@ func (r repo) AddRefreshToken(token *entity.RefreshToken) (*entity.RefreshToken,
 }
 
 func (r repo) UpdateUser(user *entity.User) *errorCodes.Slug {
-	filter := bson.D{{"_id", user.ID.String()}}
-	err := r.Database.Collection("users").FindOneAndReplace(context.Background(), filter, user).Decode(user)
+	filter := bson.D{{"_id", user.ID}}
+	opts := options.FindOneAndReplace().SetReturnDocument(options.After)
+	err := r.Database.Collection("users").FindOneAndReplace(context.Background(), filter, user, opts).Decode(&user)
 	if err != nil {
 		log.Print(err)
 		if err == mongo.ErrNoDocuments {

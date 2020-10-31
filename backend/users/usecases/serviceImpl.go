@@ -5,6 +5,7 @@ import (
 	"backend/helpers"
 	"backend/users/driver"
 	"backend/users/entity"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type serviceImpl struct {
@@ -100,4 +101,19 @@ func (s *serviceImpl) RemoveRefreshToken(jwtString string) *errorCodes.Slug {
 
 	err = s.repo.DeleteRefreshToken(&refreshToken.ID)
 	return err
+}
+
+func (s *serviceImpl) AddTest(userId *primitive.ObjectID, testResult *entity.TestResult) (*entity.User, *errorCodes.Slug) {
+	user, err := s.repo.FindUserById(userId)
+	if err != nil {
+		return nil, err
+	}
+	user.TotalTime.Duration += testResult.Time.Duration
+	user.TotalScores += testResult.Score
+	user.TestsTaken++
+	err = s.repo.UpdateUser(user)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }

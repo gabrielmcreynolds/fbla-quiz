@@ -4,7 +4,10 @@ import (
 	"backend/helpers"
 	"backend/users/entity"
 	"backend/users/usecases"
+	"fmt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
 )
 
@@ -139,6 +142,28 @@ func (con controller) Logout() func(c echo.Context) error {
 		}
 		return c.JSON(http.StatusOK, helpers.Json{
 			"message": "successfully logged out user",
+		})
+	}
+}
+
+func (con controller) AddTest() func(c echo.Context) error {
+	return func(c echo.Context) error {
+		body := new(entity.TestResult)
+		if err := c.Bind(body); err != nil || c.Validate(body) != nil {
+			return c.JSON(http.StatusBadRequest, helpers.ResponseError{
+				Message: "Must be a contain a score and duration in body",
+			})
+		}
+		idString := c.Get("user").(*jwt.Token).Claims.(jwt.MapClaims)["userId"]
+		id, _ := primitive.ObjectIDFromHex(idString.(string))
+		fmt.Printf("id: %v", id)
+		user, err := con.userService.AddTest(&id, body)
+		if err != nil {
+			return err.Response(&c)
+		}
+		return c.JSON(http.StatusCreated, helpers.Json{
+			"message": "successfully added test",
+			"user":    user,
 		})
 	}
 }

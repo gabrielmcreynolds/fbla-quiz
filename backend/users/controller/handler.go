@@ -9,4 +9,5 @@ type Handler interface {
 	Login() func(c echo.Context) error
 	Refresh() func(c echo.Context) error
 	Logout() func(c echo.Context) error
+	AddTest() func(c echo.Context) error
 }

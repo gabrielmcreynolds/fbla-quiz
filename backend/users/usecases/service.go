@@ -3,6 +3,7 @@ package usecases
 import (
 	"backend/errorCodes"
 	"backend/users/entity"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Service interface {
@@ -11,4 +12,5 @@ type Service interface {
 	AddRefreshToken(user *entity.User, ip string) (*entity.RefreshToken, *entity.AccessToken, *errorCodes.Slug)
 	RefreshToken(jwt string) (*entity.AccessToken, *errorCodes.Slug)
 	RemoveRefreshToken(jwt string) *errorCodes.Slug
+	AddTest(userId *primitive.ObjectID, testResult *entity.TestResult) (*entity.User, *errorCodes.Slug)
 }
