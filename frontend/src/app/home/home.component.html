@@ -1,0 +1,46 @@
+<div class="wrapper">
+  <div class="left">
+    <h1 class="underline">Login</h1>
+    <div class="form-container" [formGroup]="loginForm">
+      <div class="row">
+        <div class="form-left">
+          <label for="emailInput">Email:</label>
+        </div>
+        <div class="form-right">
+          <input formControlName="email" placeholder="jdoe@example.com" type="email" name="emailInput"
+                 id="emailInput">
+          <div class="input-error" *ngIf="email.invalid && (email.dirty || email.touched)">
+
+            <div *ngIf="email.errors.required">
+              Email is required
+            </div>
+            <div *ngIf="email.errors.email">
+              Must be email.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-left">
+          <label for="password">Password:</label>
+        </div>
+
+        <div class="form-right">
+          <input formControlName="password" placeholder="*****" type="password" id="password">
+        </div>
+      </div>
+    </div>
+    <button class="cta-btn" (click)="login()">Login</button>
+    <button>Create Account</button>
+  </div>
+
+  <div class="right">
+    <h2 class="underline">
+      Why Create Account?
+    </h2>
+
+    <p>
+      When you create an account you can save your progress and watch as your knowledge of FBLA increases!
+    </p>
+  </div>
+</div>

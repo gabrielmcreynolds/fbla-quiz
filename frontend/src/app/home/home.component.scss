@@ -1,0 +1,154 @@
+$tablet: 730px;
+$desktop: 930px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+.underline {
+  position: relative;
+  z-index: 1;
+}
+
+::before {
+  content: "";
+  position: absolute;
+  width: 2em;
+  background-color: #22D1EE;
+  height: 0.2em;
+  z-index: -1;
+  bottom: .15em;
+  margin-left: -0.15em;
+}
+
+.wrapper {
+  @include desktop {
+    flex-direction: row;
+    display: flex;
+  }
+}
+
+
+.left {
+  display: block;
+  margin: 0 1em;
+
+  @include desktop {
+    flex: 1;
+    margin: 0 3.5em;
+  }
+
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  .form-container {
+    .row {
+      display: block;
+
+      @include desktop {
+        display: flex;
+        flex-direction: row;
+        margin: 1.8em 0;
+      }
+    }
+
+    .form-left {
+      @include desktop {
+        flex: .2;
+      }
+
+      label {
+        font-size: 2rem;
+        @include desktop {
+          margin-right: 1em;
+          float: left;
+          width: 5em;
+          text-align: left;
+        }
+      }
+    }
+
+    .form-right {
+      @include desktop {
+        flex: 1;
+      }
+
+      input {
+        background-color: #CEFAFF;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        margin: .5em 0;
+        padding: .7em;
+        width: 90%;
+
+        border-radius: 10px;
+
+        @include desktop {
+          width: 100%;
+          flex: 3;
+        }
+      }
+    }
+  }
+
+  button {
+    display: block;
+    margin: 1em 0 .5em 0;
+    width: 90%;
+    border: none;
+    outline: none;
+    padding: .4em;
+    border-radius: 15px;
+    font-size: 2rem;
+    background-color: transparent;
+    color: #3D5AF1;
+    font-weight: bold;
+    font-family: 'Montserrat SemiBold', serif;
+
+    @include desktop {
+      margin-right: 0;
+    }
+  }
+
+  button:active {
+    background-color: #CEFAFF;
+  }
+
+  .cta-btn {
+    background-color: #3D5AF1;
+    color: white;
+  }
+
+  .cta-btn:active {
+    background-color: #6c80e7;
+  }
+}
+
+.right {
+  margin: 4em 1em;
+
+  @include desktop {
+    flex: .5;
+    margin-right: 3.5em;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  p {
+    margin: 1em;
+    font-size: 1.15rem;
+    line-height: 1.5em;
+  }
+}
