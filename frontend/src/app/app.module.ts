@@ -3,14 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {RouterModule} from '@angular/router';
-import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './auth/login/login.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,

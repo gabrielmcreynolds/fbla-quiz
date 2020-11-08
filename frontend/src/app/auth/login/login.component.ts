@@ -3,10 +3,10 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 
 @Component({
   selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
