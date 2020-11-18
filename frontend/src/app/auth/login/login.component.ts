@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   get email(): AbstractControl {
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     if (this.loginForm.valid) {
-      // do stuff
+      this.authService.login(this.email.value, this.password.value);
     }
   }
 
