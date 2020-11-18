@@ -1,4 +1,4 @@
-<button>Press Me</button>
-<div *ngFor="let question in questions">
-  <p>{{question}}</p>
+<button (click)="getQuestions()">Press Me</button>
+<div *ngFor="let question of questions">
+  <p>{{question.correctChoice}}</p>
 </div>

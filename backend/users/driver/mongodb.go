@@ -4,7 +4,6 @@ import (
 	"backend/errorCodes"
 	"backend/users/entity"
 	"context"
-	"fmt"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -49,7 +48,6 @@ func (r repo) FindUserByEmail(email string) (*entity.User, *errorCodes.Slug) {
 }
 
 func (r repo) FindUserById(id *primitive.ObjectID) (*entity.User, *errorCodes.Slug) {
-	fmt.Printf("id in mongo: %v\n", id)
 	user := new(entity.User)
 	err := r.Database.Collection("users").FindOne(context.Background(), bson.M{
 		"_id": id,

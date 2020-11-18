@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Question} from '../questions/question';
 import {HttpClient} from '@angular/common/http';
 
@@ -9,16 +9,20 @@ import {HttpClient} from '@angular/common/http';
 })
 export class DashboardComponent implements OnInit {
   questions: Array<Question>;
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {
+  }
 
   ngOnInit(): void {
   }
 
   getQuestions(): void {
-    this.http.get<{questions: Array<Question>}>('/questions')
+    this.http.get<{ questions: Array<Question> }>('questions')
       .subscribe(value => {
-      this.questions = value.questions;
-    });
+        console.log('Question: ');
+        console.log(value);
+        this.questions = value.questions;
+      });
   }
 
 }

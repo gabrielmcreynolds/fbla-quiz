@@ -23,8 +23,10 @@ export class AuthService {
 
   private static saveAuthData(
     refreshToken: string,
+    accessToken: string,
   ): void {
     localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('accessToken', accessToken);
   }
 
   private static getRefreshToken(): string {
@@ -35,7 +37,6 @@ export class AuthService {
     localStorage.clear();
     this.user = null;
     this.accessToken = null;
-
   }
 
   login(email: string, password: string): void {
@@ -47,7 +48,7 @@ export class AuthService {
       (response) => {
         if (response) {
           this.accessToken = response.accessToken;
-          AuthService.saveAuthData(response.refreshToken);
+          AuthService.saveAuthData(response.refreshToken, response.accessToken);
           this.user = response.user;
           this.authStatusListener.next(true);
           this.router.navigate(['/dashboard']);
@@ -68,7 +69,10 @@ export class AuthService {
 
   getAccessToken = () => this.accessToken;
 
-  setAccessToken = (token: string) => this.accessToken = token;
+  setAccessToken(token: string): void {
+    this.accessToken = token;
+    localStorage.setItem('accessToken', token);
+  }
 
   logout(): void {
     console.log('Not implemented');

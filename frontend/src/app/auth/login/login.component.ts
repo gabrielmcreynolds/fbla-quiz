@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(5)
     ]),
   });
 
@@ -31,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
+    console.log(this.loginForm.valid);
     if (this.loginForm.valid) {
       this.authService.login(this.email.value, this.password.value);
     }

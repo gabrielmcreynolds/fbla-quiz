@@ -6,7 +6,7 @@ import {RouterModule} from '@angular/router';
 import {LoginComponent} from './auth/login/login.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AuthInterceptor} from './auth/auth.interceptor';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
@@ -22,6 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
