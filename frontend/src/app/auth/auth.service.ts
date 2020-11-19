@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthData} from './auth-data/auth-data.module';
 import {User} from './user';
-import {environment} from '../../environments/environment';
-import {switchMap, tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +12,13 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {
     this.authStatusListener.subscribe((value) => this.isAuthenticated = value);
+    this.user$ = new Subject<User>();
   }
 
   private accessToken: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
-  private user: User;
+  private user$: Subject<User>;
 
   private static saveAuthData(
     refreshToken: string,
@@ -35,7 +34,7 @@ export class AuthService {
 
   private clearAuthData(): void {
     localStorage.clear();
-    this.user = null;
+    this.user$.next(null);
     this.accessToken = null;
   }
 
@@ -49,7 +48,7 @@ export class AuthService {
         if (response) {
           this.accessToken = response.accessToken;
           AuthService.saveAuthData(response.refreshToken, response.accessToken);
-          this.user = response.user;
+          this.user$.next(response.user);
           this.authStatusListener.next(true);
           this.router.navigate(['/dashboard']);
         }
@@ -65,9 +64,14 @@ export class AuthService {
   }
 
 
-  getUser = () => this.user;
+  getUser = () => this.user$.asObservable();
 
-  getAccessToken = () => this.accessToken;
+  getAccessToken(): string {
+    if (this.accessToken == null) {
+      return localStorage.getItem('accessToken');
+    }
+    return this.accessToken;
+  }
 
   setAccessToken(token: string): void {
     this.accessToken = token;
@@ -75,6 +79,14 @@ export class AuthService {
   }
 
   logout(): void {
-    console.log('Not implemented');
+    const refreshToken = AuthService.getRefreshToken();
+    this.http.request('delete', 'users/logout', {
+      body: {
+        refreshToken,
+      }
+    }).subscribe(data => {
+      this.clearAuthData();
+    });
+    this.router.navigate(['/']);
   }
 }

@@ -1,4 +1,5 @@
 export class Question {
   question: string;
-  correctChoice: any;
+  choices: Array<string> | null;
+  correctChoice: (string | boolean);
 }

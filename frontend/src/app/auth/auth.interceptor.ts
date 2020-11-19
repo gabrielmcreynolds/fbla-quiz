@@ -22,8 +22,10 @@ export class AuthInterceptor implements HttpInterceptor {
       headers: request.headers.set('Authorization', `Bearer ${authToken}`),
       url: environment.apiUrl + request.url,
     });
+    console.log(`Request Header: ${authRequest.headers}`);
     return next.handle(authRequest).pipe(
       catchError((error: HttpErrorResponse) => {
+        console.log(error.error);
         if (error.status === 401 && error.error.message === 'invalid or expired jwt') {
           return this.authService.refresh().pipe(
             mergeMap(data => {

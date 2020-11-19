@@ -56,7 +56,7 @@ func (token *AccessToken) GenerateJWT() (string, *errorCodes.Slug) {
 	claims := accessToken.Claims.(jwt.MapClaims)
 	claims["userId"] = token.UserID
 	claims["email"] = token.Email
-	claims["exp"] = time.Now().Add(time.Minute * 2).Unix()
+	claims["exp"] = time.Now().Add(time.Minute * 15).Unix()
 	tokenString, err := accessToken.SignedString([]byte(os.Getenv("accessSecret")))
 	if err != nil {
 		return "", errorCodes.NewErrTokenToJWT()
