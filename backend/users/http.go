@@ -22,6 +22,9 @@ func UserRoutes(group *echo.Group, database *mongo.Database) {
 	group.DELETE("/logout", handler.Logout(), middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey: []byte(os.Getenv("accessSecret")),
 	}))
+	group.GET("", handler.GetUser(), middleware.JWTWithConfig(middleware.JWTConfig{
+		SigningKey: []byte(os.Getenv("accessSecret")),
+	}))
 	group.POST("/addTest", handler.AddTest(), middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey: []byte(os.Getenv("accessSecret")),
 	}))

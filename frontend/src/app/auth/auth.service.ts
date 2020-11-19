@@ -13,12 +13,21 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
     this.authStatusListener.subscribe((value) => this.isAuthenticated = value);
     this.user$ = new Subject<User>();
+    this.setUser();
   }
 
   private accessToken: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
   private user$: Subject<User>;
+
+  setUser(): void {
+    if (localStorage.getItem('refreshToken') != null) {
+
+    }
+    this.user$.next(null);
+    return false;
+  }
 
   private static saveAuthData(
     refreshToken: string,

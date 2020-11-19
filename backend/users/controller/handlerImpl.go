@@ -5,9 +5,7 @@ import (
 	"backend/users/entity"
 	"backend/users/usecases"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"net/http"
 )
 
@@ -18,6 +16,20 @@ type controller struct {
 func NewUserController(service usecases.Service) Handler {
 	return &controller{
 		userService: service,
+	}
+}
+
+func (con controller) GetUser() func(c echo.Context) error {
+	return func(c echo.Context) error {
+		id, _ := helpers.GetUserIdFromCtx(c)
+		user, slug := con.userService.GetUser(&id)
+		if slug != nil {
+			return slug.Response(&c)
+		}
+
+		return c.JSON(http.StatusOK, helpers.Json{
+			"user": user,
+		})
 	}
 }
 
@@ -154,8 +166,7 @@ func (con controller) AddTest() func(c echo.Context) error {
 				Message: "Must be a contain a score and duration in body",
 			})
 		}
-		idString := c.Get("user").(*jwt.Token).Claims.(jwt.MapClaims)["userId"]
-		id, _ := primitive.ObjectIDFromHex(idString.(string))
+		id, _ := helpers.GetUserIdFromCtx(c)
 		fmt.Printf("id: %v", id)
 		user, err := con.userService.AddTest(&id, body)
 		if err != nil {

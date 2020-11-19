@@ -18,6 +18,11 @@ func NewService(repository driver.Repository) Service {
 	}
 }
 
+func (s *serviceImpl) GetUser(userId *primitive.ObjectID) (*entity.User, *errorCodes.Slug) {
+	user, err := s.repo.FindUserById(userId)
+	return user, err
+}
+
 func (s *serviceImpl) CreateUser(auth *entity.Authentication) (*entity.User, *errorCodes.Slug) {
 	passwordHash, err := helpers.HashPassword(auth.Password)
 	if err != nil {

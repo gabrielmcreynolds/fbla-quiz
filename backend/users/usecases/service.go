@@ -13,4 +13,5 @@ type Service interface {
 	RefreshToken(jwt string) (*entity.AccessToken, *errorCodes.Slug)
 	RemoveRefreshToken(jwt string) *errorCodes.Slug
 	AddTest(userId *primitive.ObjectID, testResult *entity.TestResult) (*entity.User, *errorCodes.Slug)
+	GetUser(userId *primitive.ObjectID) (*entity.User, *errorCodes.Slug)
 }

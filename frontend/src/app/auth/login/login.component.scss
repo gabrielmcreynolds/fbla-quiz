@@ -13,22 +13,6 @@ $desktop: 930px;
   }
 }
 
-.underline {
-  position: relative;
-  z-index: 1;
-}
-
-::before {
-  content: "";
-  position: absolute;
-  width: 2em;
-  background-color: #22D1EE;
-  height: 0.2em;
-  z-index: -1;
-  bottom: .15em;
-  margin-left: -0.15em;
-}
-
 .wrapper {
   @include desktop {
     flex-direction: row;

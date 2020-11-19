@@ -3,6 +3,8 @@ package helpers
 import (
 	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/labstack/echo"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"os"
 )
@@ -27,4 +29,9 @@ func DecodeRefreshToken(tokenString string) (*jwt.Token, error) {
 		// hmacSampleSecret is a []byte containing your secret, e.g. []byte("my_secret_key")
 		return []byte(os.Getenv("refreshSecret")), nil
 	})
+}
+
+func GetUserIdFromCtx(c echo.Context) (primitive.ObjectID, error) {
+	idString := c.Get("user").(*jwt.Token).Claims.(jwt.MapClaims)["userId"]
+	return primitive.ObjectIDFromHex(idString.(string))
 }
