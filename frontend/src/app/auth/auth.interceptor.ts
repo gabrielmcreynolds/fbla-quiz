@@ -1,19 +1,21 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpErrorResponse, HttpClient
+  HttpInterceptor, HttpErrorResponse,
 } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {AuthService} from './auth.service';
-import {catchError, mergeMap, switchMap} from 'rxjs/operators';
+import {catchError, mergeMap} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  private authService: AuthService;
 
-  constructor(private authService: AuthService, private http: HttpClient) {
+  constructor(inj: Injector) {
+    this.authService = inj.get(AuthService);
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -22,10 +24,8 @@ export class AuthInterceptor implements HttpInterceptor {
       headers: request.headers.set('Authorization', `Bearer ${authToken}`),
       url: environment.apiUrl + request.url,
     });
-    console.log(`Request Header: ${authRequest.headers}`);
     return next.handle(authRequest).pipe(
       catchError((error: HttpErrorResponse) => {
-        console.log(error.error);
         if (error.status === 401 && error.error.message === 'invalid or expired jwt') {
           return this.authService.refresh().pipe(
             mergeMap(data => {

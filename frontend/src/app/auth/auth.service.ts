@@ -21,14 +21,6 @@ export class AuthService {
   private isAuthenticated = false;
   private user$: Subject<User>;
 
-  setUser(): void {
-    if (localStorage.getItem('refreshToken') != null) {
-
-    }
-    this.user$.next(null);
-    return false;
-  }
-
   private static saveAuthData(
     refreshToken: string,
     accessToken: string,
@@ -41,7 +33,22 @@ export class AuthService {
     return localStorage.getItem('refreshToken');
   }
 
+  setUser(): void {
+    if (localStorage.getItem('refreshToken') != null) {
+      this.http.get<{user: User}>('users').subscribe(data => {
+        if (data) {
+          this.user$.next(data.user);
+        }
+      }, error => {
+        this.logout();
+      });
+    }
+    this.user$.next(null);
+    this.router.navigate(['/']);
+  }
+
   private clearAuthData(): void {
+    console.log('Clearing auth Data');
     localStorage.clear();
     this.user$.next(null);
     this.accessToken = null;
