@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Injectable, OnInit} from '@angular/core';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {AuthData} from './auth-data/auth-data.module';
@@ -8,12 +8,12 @@ import {User} from './user';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnInit{
 
   constructor(private http: HttpClient, private router: Router) {
     this.authStatusListener.subscribe((value) => this.isAuthenticated = value);
-    this.user$ = new Subject<User>();
-    this.setUser();
+    this.user$ = new BehaviorSubject<User>(null);
+    setTimeout(() => this.setUser(), 100);
   }
 
   private accessToken: string;
@@ -34,12 +34,14 @@ export class AuthService {
   }
 
   setUser(): void {
+    console.log('Setting user');
     if (localStorage.getItem('refreshToken') != null) {
       this.http.get<{user: User}>('users').subscribe(data => {
         if (data) {
           this.user$.next(data.user);
+          this.router.navigate(['/dashboard']);
         }
-      }, error => {
+      }, () => {
         this.logout();
       });
     }
@@ -68,7 +70,7 @@ export class AuthService {
           this.authStatusListener.next(true);
           this.router.navigate(['/dashboard']);
         }
-      }, (error => {
+      }, (() => {
         this.authStatusListener.next(false);
       })
     );
@@ -100,9 +102,12 @@ export class AuthService {
       body: {
         refreshToken,
       }
-    }).subscribe(data => {
+    }).subscribe(() => {
       this.clearAuthData();
     });
     this.router.navigate(['/']);
+  }
+
+  ngOnInit(): void {
   }
 }

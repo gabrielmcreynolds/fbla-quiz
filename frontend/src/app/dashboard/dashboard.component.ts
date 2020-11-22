@@ -12,16 +12,29 @@ import {User} from '../auth/user';
 export class DashboardComponent implements OnInit {
   questions: Array<Question>;
   user: User;
+  isLoading = true;
 
   constructor(private http: HttpClient, private authService: AuthService) {
+
   }
 
   ngOnInit(): void {
-    this.authService.getUser().subscribe(user => this.user = user);
+    this.authService.getUser().subscribe(user => {
+      this.user = user;
+      this.isLoading = user == null;
+    });
   }
 
-  getQuestions(): void {
-    this.authService.logout();
+  getAverageTime(): string {
+    const totalSeconds = this.user.totalTime / this.user.testsTaken;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    if (minutes === 0) {
+      return `${seconds} s`;
+    }
+    if (seconds === 0) {
+      return `${minutes} m`;
+    }
+    return `${minutes} m ${seconds} s`;
   }
-
 }

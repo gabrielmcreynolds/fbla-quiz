@@ -34,9 +34,7 @@ func (s *serviceImpl) CreateUser(auth *entity.Authentication) (*entity.User, *er
 		PasswordHash: passwordHash,
 		TestsTaken:   0,
 		TotalScores:  0,
-		TotalTime: entity.Duration{
-			Duration: 0,
-		},
+		TotalTime:    0,
 	})
 	if slug != nil {
 		return nil, slug
@@ -113,7 +111,7 @@ func (s *serviceImpl) AddTest(userId *primitive.ObjectID, testResult *entity.Tes
 	if err != nil {
 		return nil, err
 	}
-	user.TotalTime.Duration += testResult.Time.Duration
+	user.TotalTime += testResult.Time
 	user.TotalScores += testResult.Score
 	user.TestsTaken++
 	err = s.repo.UpdateUser(user)

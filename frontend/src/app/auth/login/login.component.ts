@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private authService: AuthService) {
-
+    console.log('Hello');
   }
   get email(): AbstractControl {
     return this.loginForm.get('email');

@@ -1,1 +1,30 @@
-<h1 class="underline">Hi, {{user?.name}}</h1>
+<div class="wrapper">
+  <h1 class="underline">Hi, {{user?.name}}</h1>
+
+  <h3>Quick Stats:</h3>
+  <div *ngIf="!isLoading">
+    <ul class="stats">
+      <li>
+        <strong>Tests Taken</strong>
+        <span>{{user.testsTaken}}</span>
+      </li>
+
+      <li>
+        <strong>Average Score</strong>
+        <span>{{user.totalScores / user.testsTaken}}</span>
+      </li>
+
+      <li>
+        <strong>Average Time</strong>
+        <span>{{getAverageTime()}}</span>
+      </li>
+    </ul>
+    <div class="center">
+      <div class="blue-background">
+        <button>Start Quiz</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
