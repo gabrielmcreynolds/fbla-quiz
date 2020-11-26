@@ -1,0 +1,12 @@
+<div class="wrapper">
+  <h2>
+    {{question.question}}
+  </h2>
+
+  <ul>
+    <li [@mc]="selectedChoice === choice ? 'selected' : 'not-selected'" (click)="setChoice(choice)"
+        *ngFor="let choice of question.choices">
+      {{choice}}
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+
+  h2 {
+    font-size: 3.5rem;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    li {
+      cursor: default;
+      background-color: #B8E7EC;
+      border-radius: 10px;
+      padding: 1em;
+      font-weight: bold;
+      font-size: 3rem;
+      margin: 0 1em 0 1em;
+    }
+  }
+}

@@ -30,7 +30,7 @@ $desktop: 930px;
   }
 
   .form-container {
-    .row {
+    .column {
       display: block;
 
       @include desktop {

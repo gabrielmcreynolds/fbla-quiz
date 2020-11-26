@@ -1,0 +1,23 @@
+<div class="wrapper">
+  <h2>
+    {{ question.question }}
+  </h2>
+
+  <ul>
+    <li
+      (click)="setAnswer(true)"
+      [@trueFalse]="selectedAnswer ? 'selected' : 'not-selected'"
+      class="true"
+    >
+      T
+    </li>
+    <hr />
+    <li
+      (click)="setAnswer(false)"
+      [@trueFalse]="selectedAnswer ? 'not-selected' : 'selected'"
+      class="false"
+    >
+      F
+    </li>
+  </ul>
+</div>

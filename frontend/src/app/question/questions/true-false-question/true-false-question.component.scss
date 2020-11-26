@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+
+  h2 {
+    font-size: 3.5rem;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  ul {
+    list-style: none;
+    justify-content: center;
+    align-content: center;
+    align-self: center;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+
+    li {
+      border-radius: 10px;
+      cursor: default;
+      color: #22D1EE;
+      font-size: 8rem;
+      font-weight: bold;
+      padding: .5em;
+      margin: 0.5em;
+    }
+  }
+}
