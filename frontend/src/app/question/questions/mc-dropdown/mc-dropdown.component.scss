@@ -1,0 +1,25 @@
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+
+  h2 {
+    font-size: 3.5rem;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  select {
+    outline: none;
+    border: none;
+    background-color: #CEFAFF;
+    border-radius: 15px;
+    padding: .5em;
+    font-size: 1.5rem;
+
+    option {
+      background-color: #E2F3F5;
+      font-size: 1.5rem;
+    }
+  }
+}

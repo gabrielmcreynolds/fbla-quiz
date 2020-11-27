@@ -1,0 +1,10 @@
+<div class="wrapper">
+  <h2>{{question.question}}</h2>
+
+
+  <select [ngModel]="selectedChoice" (ngModelChange)="onChange($event)">
+    <option *ngFor="let choice of question.choices">
+      {{choice}}
+    </option>
+  </select>
+</div>
