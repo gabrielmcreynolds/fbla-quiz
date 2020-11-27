@@ -24,11 +24,21 @@ export class QuizComponent implements OnInit {
     });
     this.startTimer();
 
-    this.question = {
-      question: 'Was FBLA invented in 1786',
+  /*  this.question = {
+      question: 'What year was FBLA invented in',
       correctChoice: '1785',
       choices: ['1785', '1786', '1787', '1788'],
+    };*/
+
+    this.question = {
+      question: 'What kind of attire is acceptable for FBLA activities?',
+      correctChoice: 'Business Attire',
     };
+
+    /* this.question = {
+      question: 'Was FBLA invented in 1786',
+      correctChoice: true,
+    };*/
   }
 
   startTimer(): void {

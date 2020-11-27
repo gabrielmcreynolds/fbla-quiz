@@ -1,1 +1,14 @@
-<p>short-answer works!</p>
+<div class="wrapper">
+  <h2>
+    {{ question.question }}
+  </h2>
+
+
+  <div class="input-field">
+    <input [(ngModel)]="answer" (ngModelChange)="onQuestionChanged($event)">
+    <br>
+    <span class="input-error" *ngIf="!answer">
+      Required
+    </span>
+  </div>
+</div>

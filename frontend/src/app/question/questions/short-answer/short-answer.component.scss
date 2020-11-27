@@ -1,0 +1,31 @@
+.wrapper {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+
+  h2 {
+    font-size: 3.5rem;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  .input-field {
+    margin: 0 auto;
+    input {
+      width: max-content;
+      border-bottom: 2px solid #0E153A;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      background-color: transparent;
+      font-size: 1.5rem;
+      margin-bottom: 1em;
+    }
+
+    input:focus {
+      outline: none;
+    }
+  }
+
+
+}
