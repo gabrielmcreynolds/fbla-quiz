@@ -36,14 +36,18 @@ export class McPickBoxComponent implements OnInit {
   @Input() question: Question;
   @Output() answeredQuestion = new EventEmitter<Question>();
   selectedChoice: string;
+  private questionCopy: Question;
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // b/c you can't change an @Input I'm copying
+    this.questionCopy = { ...this.question };
+  }
 
   setChoice(choice: string): void {
     this.selectedChoice = choice;
-    this.question.selectedChoice = this.selectedChoice;
-    this.answeredQuestion.emit(this.question);
+    this.questionCopy.selectedChoice = this.selectedChoice;
+    this.answeredQuestion.emit(this.questionCopy);
   }
 }

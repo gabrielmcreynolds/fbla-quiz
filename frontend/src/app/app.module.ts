@@ -14,6 +14,8 @@ import { TrueFalseQuestionComponent } from './question/questions/true-false-ques
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { McPickBoxComponent } from './question/questions/mc-pick-box/mc-pick-box.component';
 import { ShortAnswerComponent } from './question/questions/short-answer/short-answer.component';
+import { McDropdownComponent } from './question/questions/mc-dropdown/mc-dropdown.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { ShortAnswerComponent } from './question/questions/short-answer/short-an
     TrueFalseQuestionComponent,
     McPickBoxComponent,
     ShortAnswerComponent,
+    McDropdownComponent,
+    SpinnerComponent,
   ],
   imports: [
     BrowserAnimationsModule,

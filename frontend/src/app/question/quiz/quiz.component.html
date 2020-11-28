@@ -1,20 +1,44 @@
-<div class="wrapper">
+<div class="wrapper" *ngIf="questions">
   <header>
     <h1 class="underline">In Quiz</h1>
     <div class="column">
       <div class="row">
         <img src="/assets/clock-icon.svg" alt="Clock: ">
-        <p>{{minutes}}:{{seconds}}</p>
+        <p>{{getReadableTime(time)}}</p>
       </div>
-      <p>1/5</p>
+      <p>{{questionIndex + 1}}/{{questions.length}}</p>
     </div>
   </header>
 
- <!-- <app-mc-pick-box [question]="question"></app-mc-pick-box>-->
-  <app-short-answer [question]="question"></app-short-answer>
-<!--
-  <app-true-false-question [question]="question"></app-true-false-question>
--->
+  <ng-container *ngIf="getSelectedQuestionType() === allQuestionTypes.ShortAnswer">
+    <app-short-answer
+      (answeredQuestion)="answerChanged($event)" [question]="questions[questionIndex]">
+    </app-short-answer>
+  </ng-container>
+
+  <ng-container *ngIf="getSelectedQuestionType() === allQuestionTypes.McPickBox">
+    <app-mc-pick-box
+      (answeredQuestion)="answerChanged($event)" [question]="questions[questionIndex]"></app-mc-pick-box>
+  </ng-container>
+
+  <ng-container *ngIf="getSelectedQuestionType() === allQuestionTypes.McDropdown">
+    <app-mc-dropdown
+      (answeredQuestion)="answerChanged($event)" [question]="questions[questionIndex]"></app-mc-dropdown>
+  </ng-container>
+
+  <ng-container *ngIf="getSelectedQuestionType() === allQuestionTypes.TrueFalse">
+    <app-true-false-question
+      (answeredQuestion)="answerChanged($event)"
+      [question]="questions[questionIndex]"></app-true-false-question>
+  </ng-container>
 
 
+  <div class="button-container">
+    <button [disabled]="!canAdvance" (click)="advanceQuestion()">Next</button>
+    <p *ngIf="!canAdvance" class="input-error button-error">Please answer question</p>
+  </div>
+</div>
+
+<div *ngIf="!questions">
+  <app-spinner></app-spinner>
 </div>

@@ -11,10 +11,10 @@
     >
       T
     </li>
-    <hr />
+    <hr/>
     <li
       (click)="setAnswer(false)"
-      [@trueFalse]="selectedAnswer ? 'not-selected' : 'selected'"
+      [@trueFalse]="selectedAnswer == null ? 'not-selected' : selectedAnswer ? 'not-selected' : 'selected'"
       class="false"
     >
       F

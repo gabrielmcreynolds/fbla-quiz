@@ -10,12 +10,16 @@ export class McDropdownComponent implements OnInit {
   @Input() question: Question;
   @Output() answeredQuestion = new EventEmitter<Question>();
   selectedChoice: string;
+  private questionCopy: Question;
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // b/c you can't change an @Input I'm copying
+    this.questionCopy = { ...this.question };
+  }
 
   onChange(value: string): void {
-    this.question.selectedChoice = value;
-    this.answeredQuestion.emit(this.question);
+    this.questionCopy.selectedChoice = value;
+    this.answeredQuestion.emit(this.questionCopy);
   }
 }

@@ -37,18 +37,19 @@ import {
 export class TrueFalseQuestionComponent implements OnInit {
   @Input() question: Question;
   @Output() answeredQuestion = new EventEmitter<Question>();
-  selectedAnswer = true;
+  selectedAnswer: boolean;
+  private questionCopy: Question;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.question.selectedChoice = this.selectedAnswer;
-    this.answeredQuestion.emit(this.question);
+    // b/c you can't change an @Input I'm copying
+    this.questionCopy = { ...this.question };
   }
 
   setAnswer(answer: boolean): void {
     this.selectedAnswer = answer;
-    this.question.selectedChoice = this.selectedAnswer;
-    this.answeredQuestion.emit(this.question);
+    this.questionCopy.selectedChoice = this.selectedAnswer;
+    this.answeredQuestion.emit(this.questionCopy);
   }
 }
