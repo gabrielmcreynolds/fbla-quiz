@@ -1,0 +1,39 @@
+<div class="wrapper">
+  <header>
+    <h1 class="underline">Results</h1>
+    <button routerLink="/dashboard">Dashboard</button>
+  </header>
+
+  <ul>
+    <li>
+      <strong>Correct</strong>
+      <span>{{correctQuestions}}/5</span>
+    </li>
+
+    <li>
+      <strong>Time</strong>
+      <span>{{getReadableTime()}}</span>
+    </li>
+
+    <li>
+      <strong>Percentage</strong>
+      <span>{{correctQuestions / questions.length | percent}}</span>
+    </li>
+  </ul>
+
+  <div class="question-answers">
+    <div *ngFor="let question of questions; index as i" class="question-container">
+      <h2>Question {{i + 1}}</h2>
+      <p class="question">{{question.question}}</p>
+      <p [ngClass]="isQuestionCorrect(question) ? 'correct' : 'incorrect'"
+         class="selectedAnswer"><strong>{{question.selectedChoice}}</strong></p>
+      <p *ngIf="this.question.answer != null">
+        Correct Answer: <strong>{{question.answer}}</strong>
+      </p>
+
+      <p *ngIf="this.question.answer == null">
+        Correct Answer: <strong>{{this.question.correctChoice}}</strong>
+      </p>
+    </div>
+  </div>
+</div>

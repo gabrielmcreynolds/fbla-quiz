@@ -1,0 +1,123 @@
+$tablet: 730px;
+$desktop: 930px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+
+.wrapper {
+  display: block;
+  margin: 0 1em 1em 1em;
+
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include desktop {
+     display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      color: white;
+      padding: .2em 1em;
+      background-color: #3D5AF1;
+      font-size: 3rem;
+      border: none;
+      border-radius: 15px;
+      margin: 0;
+    }
+  }
+
+
+  @include desktop {
+    flex: 1;
+    margin: 0 3.5em;
+  }
+
+  ul {
+    list-style: none;
+    //padding: 0;
+    display: block;
+    background-color: #aee8f1;
+    padding: 1em;
+    border-radius: 10px;
+    text-align: center;
+
+    @include desktop {
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      justify-content: space-around;
+      margin-top: 2.5em;
+      display: grid;
+      padding: 0;
+      background-color: transparent;
+      text-align: left;
+
+    }
+
+    li {
+      margin-bottom: 1.5em;
+      @include desktop {
+        border-right: 1px solid rgb(124, 89, 148);
+        padding-left: 3em;
+        &:last-child {
+          border: 0;
+        }
+      }
+
+    }
+
+    strong {
+      font-size: 2.4em;
+      font-weight: normal;
+    }
+
+    span {
+      display: block;
+      text-transform: uppercase;
+      font-size: 2em;
+      font-weight: lighter;
+    }
+  }
+
+  .question-answers {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: auto;
+
+    @include desktop {
+      grid-template-columns: 50% 50%;
+    }
+
+    .question-container {
+      background-color: #B8E7EC;
+      border-radius: 15px;
+      margin: 2em;
+      padding: 2em;
+
+      .correct {
+        padding: 1em;
+        background-color: #3acd21;
+        border-radius: 8px;
+      }
+
+      .incorrect {
+        background-color: #e70743;
+        padding: 1em;
+        border-radius: 8px;
+      }
+    }
+  }
+}
