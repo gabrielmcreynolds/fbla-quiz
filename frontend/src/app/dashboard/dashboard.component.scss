@@ -15,7 +15,7 @@ $desktop: 930px;
 
 .wrapper {
   display: block;
-  margin: 0 1em;
+  margin: 0 1em 1em 1em;
 
   @include desktop {
     flex: 1;

@@ -16,6 +16,7 @@ import { McPickBoxComponent } from './question/questions/mc-pick-box/mc-pick-box
 import { ShortAnswerComponent } from './question/questions/short-answer/short-answer.component';
 import { McDropdownComponent } from './question/questions/mc-dropdown/mc-dropdown.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     ShortAnswerComponent,
     McDropdownComponent,
     SpinnerComponent,
+    ResultsComponent,
   ],
   imports: [
     BrowserAnimationsModule,

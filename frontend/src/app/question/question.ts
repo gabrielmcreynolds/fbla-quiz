@@ -8,4 +8,6 @@ export interface Question {
   // if the correctChoice is false this is the correct answer
   answer?: string;
   type: QuestionType;
+
+  isCorrect?: boolean;
 }

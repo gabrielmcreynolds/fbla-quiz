@@ -29,7 +29,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getAverageTime(): string {
-    const totalSeconds = this.user.totalTime / this.user.testsTaken;
+    if (this.user.totalTime === 0) {
+      return '0 M 0 S';
+    }
+    const totalSeconds = Math.floor(this.user.totalTime / this.user.testsTaken);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     if (minutes === 0) {

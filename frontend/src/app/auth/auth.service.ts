@@ -1,19 +1,20 @@
-import {Injectable, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {Router} from '@angular/router';
-import {AuthData} from './auth-data/auth-data.module';
-import {User} from './user';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { AuthData } from './auth-data/auth-data.module';
+import { User } from './user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class AuthService implements OnInit{
-
+export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
-    this.authStatusListener.subscribe((value) => this.isAuthenticated = value);
+    this.authStatusListener.subscribe(
+      (value) => (this.isAuthenticated = value)
+    );
     this.user$ = new BehaviorSubject<User>(null);
-    setTimeout(() => this.setUser(), 100);
+    setTimeout(() => this.initUser(), 100);
   }
 
   private accessToken: string;
@@ -21,10 +22,7 @@ export class AuthService implements OnInit{
   private isAuthenticated = false;
   private user$: Subject<User>;
 
-  private static saveAuthData(
-    refreshToken: string,
-    accessToken: string,
-  ): void {
+  private static saveAuthData(refreshToken: string, accessToken: string): void {
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('accessToken', accessToken);
   }
@@ -33,17 +31,24 @@ export class AuthService implements OnInit{
     return localStorage.getItem('refreshToken');
   }
 
-  setUser(): void {
+  setUser(user: User): void {
+    this.user$.next(user);
+  }
+
+  initUser(): void {
     console.log('Setting user');
     if (localStorage.getItem('refreshToken') != null) {
-      this.http.get<{user: User}>('users').subscribe(data => {
-        if (data) {
-          this.user$.next(data.user);
-          this.router.navigate(['/dashboard']);
+      this.http.get<{ user: User }>('users').subscribe(
+        (data) => {
+          if (data) {
+            this.user$.next(data.user);
+            this.router.navigate(['/dashboard']);
+          }
+        },
+        () => {
+          this.logout();
         }
-      }, () => {
-        this.logout();
-      });
+      );
     }
     this.user$.next(null);
     this.router.navigate(['/']);
@@ -57,30 +62,38 @@ export class AuthService implements OnInit{
   }
 
   login(email: string, password: string): void {
-    const authData: AuthData = {email, password};
-    this.http.post<{
-      accessToken: string; refreshToken: string;
-      user: User
-    }>('users/login', authData).subscribe(
-      (response) => {
-        if (response) {
-          this.accessToken = response.accessToken;
-          AuthService.saveAuthData(response.refreshToken, response.accessToken);
-          this.user$.next(response.user);
-          this.authStatusListener.next(true);
-          this.router.navigate(['/dashboard']);
+    const authData: AuthData = { email, password };
+    this.http
+      .post<{
+        accessToken: string;
+        refreshToken: string;
+        user: User;
+      }>('users/login', authData)
+      .subscribe(
+        (response) => {
+          if (response) {
+            this.accessToken = response.accessToken;
+            AuthService.saveAuthData(
+              response.refreshToken,
+              response.accessToken
+            );
+            this.user$.next(response.user);
+            this.authStatusListener.next(true);
+            this.router.navigate(['/dashboard']);
+          }
+        },
+        () => {
+          this.authStatusListener.next(false);
         }
-      }, (() => {
-        this.authStatusListener.next(false);
-      })
+      );
+  }
+
+  refresh(): Observable<{ accessToken: string; message: string }> {
+    return this.http.post<{ accessToken: string; message: string }>(
+      `users/refresh`,
+      { refreshToken: AuthService.getRefreshToken() }
     );
   }
-
-  refresh(): Observable<{ accessToken: string, message: string }> {
-    return this.http.post<{ accessToken: string, message: string }>(
-      `users/refresh`, {refreshToken: AuthService.getRefreshToken()});
-  }
-
 
   getUser = () => this.user$.asObservable();
 
@@ -98,16 +111,15 @@ export class AuthService implements OnInit{
 
   logout(): void {
     const refreshToken = AuthService.getRefreshToken();
-    this.http.request('delete', 'users/logout', {
-      body: {
-        refreshToken,
-      }
-    }).subscribe(() => {
-      this.clearAuthData();
-    });
+    this.http
+      .request('delete', 'users/logout', {
+        body: {
+          refreshToken,
+        },
+      })
+      .subscribe(() => {
+        this.clearAuthData();
+      });
     this.router.navigate(['/']);
-  }
-
-  ngOnInit(): void {
   }
 }

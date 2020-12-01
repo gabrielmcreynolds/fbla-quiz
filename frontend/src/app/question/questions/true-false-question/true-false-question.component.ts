@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Question } from '../../question';
 import {
   trigger,
@@ -34,7 +42,7 @@ import {
     ]),
   ],
 })
-export class TrueFalseQuestionComponent implements OnInit {
+export class TrueFalseQuestionComponent implements OnInit, OnChanges {
   @Input() question: Question;
   @Output() answeredQuestion = new EventEmitter<Question>();
   selectedAnswer: boolean;
@@ -51,5 +59,9 @@ export class TrueFalseQuestionComponent implements OnInit {
     this.selectedAnswer = answer;
     this.questionCopy.selectedChoice = this.selectedAnswer;
     this.answeredQuestion.emit(this.questionCopy);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.selectedAnswer = null;
   }
 }

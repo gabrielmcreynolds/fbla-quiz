@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Question } from '../../question';
 import {
   animate,
@@ -32,7 +40,7 @@ import {
     ]),
   ],
 })
-export class McPickBoxComponent implements OnInit {
+export class McPickBoxComponent implements OnInit, OnChanges {
   @Input() question: Question;
   @Output() answeredQuestion = new EventEmitter<Question>();
   selectedChoice: string;
@@ -49,5 +57,9 @@ export class McPickBoxComponent implements OnInit {
     this.selectedChoice = choice;
     this.questionCopy.selectedChoice = this.selectedChoice;
     this.answeredQuestion.emit(this.questionCopy);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.selectedChoice = null;
   }
 }

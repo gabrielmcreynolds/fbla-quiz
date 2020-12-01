@@ -11,7 +11,7 @@
 
       <li>
         <strong>Average Score</strong>
-        <span>{{user.totalScores / user.testsTaken}}</span>
+        <span>{{user.testsTaken === 0 ? 0 : user.totalScores / user.testsTaken | number}}</span>
       </li>
 
       <li>

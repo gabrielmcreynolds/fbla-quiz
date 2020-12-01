@@ -25,7 +25,7 @@
     <div *ngFor="let question of questions; index as i" class="question-container">
       <h2>Question {{i + 1}}</h2>
       <p class="question">{{question.question}}</p>
-      <p [ngClass]="isQuestionCorrect(question) ? 'correct' : 'incorrect'"
+      <p [ngClass]="(question.isCorrect) ? 'correct' : 'incorrect'"
          class="selectedAnswer"><strong>{{question.selectedChoice}}</strong></p>
       <p *ngIf="this.question.answer != null">
         Correct Answer: <strong>{{question.answer}}</strong>

@@ -1,14 +1,15 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from './auth/login/login.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {QuizComponent} from './question/quiz/quiz.component';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './auth/login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { QuizComponent } from './question/quiz/quiz.component';
+import { ResultsComponent } from './results/results.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'quiz', component: QuizComponent}
+  { path: '', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'quiz', component: QuizComponent },
+  { path: 'results', component: ResultsComponent },
 ];
 
 @NgModule({
@@ -16,5 +17,4 @@ const routes: Routes = [
   exports: [RouterModule],
   // providers: [AuthGuard]
 })
-export class AppRoutingModule {
-}
+export class AppRoutingModule {}

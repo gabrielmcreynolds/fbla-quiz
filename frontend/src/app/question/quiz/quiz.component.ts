@@ -3,6 +3,7 @@ import { timer } from 'rxjs';
 import { Question } from '../question';
 import { QuestionService } from '../question.service';
 import { QuestionType } from '../question-type.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -23,7 +24,10 @@ export class QuizComponent implements OnInit {
   public allQuestionTypes = QuestionType;
   public canAdvance: boolean;
 
-  constructor(private questionService: QuestionService) {}
+  constructor(
+    private questionService: QuestionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.canAdvance = false;
@@ -62,19 +66,22 @@ export class QuizComponent implements OnInit {
     return this.questions[this.questionIndex].type;
   }
 
-  /*@HostListener('window:beforeunload', ['$event']) unloadHandler(
+  @HostListener('window:beforeunload', ['$event']) unloadHandler(
     event: Event
   ): void {
     const result = confirm('Changes you made may not be saved.');
     if (result) {
       // Do more processing...
+      this.router.navigate(['/dashboard']);
     }
     event.returnValue = false; // stay on same page
-  }*/
+  }
 
   advanceQuestion(): void {
     if (this.questionIndex === 4) {
       // navigate to results
+      this.questionService.setQuestions(this.questions, this.time);
+      this.router.navigate(['/results']);
     }
     this.canAdvance = false;
     this.questionIndex++;

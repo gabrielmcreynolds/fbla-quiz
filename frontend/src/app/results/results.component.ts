@@ -15,6 +15,7 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit(): void {
     this.questions = this.questionService.questions.value;
+    this.correctQuestions = this.questionService.correctQuestions;
   }
 
   getReadableTime(): string {
