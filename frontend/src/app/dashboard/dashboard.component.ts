@@ -3,7 +3,7 @@ import { Question } from '../question/question';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/user';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,5 +46,9 @@ export class DashboardComponent implements OnInit {
 
   startQuiz(): void {
     this.router.navigate(['/quiz']);
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 }

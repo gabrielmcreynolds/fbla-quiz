@@ -17,6 +17,29 @@ $desktop: 930px;
   display: block;
   margin: 0 1em 1em 1em;
 
+  header {
+    display: flex;
+    flex-direction: column;
+
+    @include desktop {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      background: transparent;
+      outline: none;
+      border: solid 1px #3D5AF1;
+      border-radius: 10px;
+      padding: .5em 1em;
+      height: fit-content;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #3D5AF1;
+    }
+  }
+
   @include desktop {
     flex: 1;
     margin: 0 3.5em;
