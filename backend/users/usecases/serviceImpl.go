@@ -56,6 +56,20 @@ func (s *serviceImpl) Validate(auth *entity.Authentication) (*entity.User, *erro
 	}
 }
 
+func (s *serviceImpl) UserExists(email string) (*bool, *errorCodes.Slug) {
+	_, err := s.repo.FindUserByEmail(email)
+	if err != nil {
+		if err.Message == errorCodes.InvalidEmail {
+			result := false
+			return &result, nil
+		} else {
+			return nil, err
+		}
+	}
+	result := true
+	return &result, nil
+}
+
 func (s *serviceImpl) AddRefreshToken(user *entity.User, ip string) (*entity.RefreshToken, *entity.AccessToken, *errorCodes.Slug) {
 	refreshToken := &entity.RefreshToken{
 		UserId:      user.ID,

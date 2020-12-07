@@ -17,6 +17,7 @@ import { ShortAnswerComponent } from './question/questions/short-answer/short-an
 import { McDropdownComponent } from './question/questions/mc-dropdown/mc-dropdown.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ResultsComponent } from './results/results.component';
+import { CreateAccountComponent } from './auth/create-account/create-account.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ResultsComponent } from './results/results.component';
     McDropdownComponent,
     SpinnerComponent,
     ResultsComponent,
+    CreateAccountComponent,
   ],
   imports: [
     BrowserAnimationsModule,

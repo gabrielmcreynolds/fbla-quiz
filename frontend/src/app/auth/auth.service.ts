@@ -61,6 +61,19 @@ export class AuthService {
     this.accessToken = null;
   }
 
+  createUser(authData: AuthData): void {
+    this.http
+      .post<{
+        accessToken: string;
+        refreshToken: string;
+        user: User;
+      }>('users/signup', authData)
+      .subscribe((response) => {
+        if (response) {
+        }
+      });
+  }
+
   login(email: string, password: string): void {
     const authData: AuthData = { email, password };
     this.http

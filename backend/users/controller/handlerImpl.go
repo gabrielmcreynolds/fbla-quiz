@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"backend/errorCodes"
 	"backend/helpers"
 	"backend/users/entity"
 	"backend/users/usecases"
@@ -42,6 +43,15 @@ func (con controller) CreateUser() func(c echo.Context) error {
 				Resolution: "Make sure the body is JSON with email, name, and password fields",
 				Error:      err,
 			})
+		}
+
+		userExists, err := con.userService.UserExists(auth.Email)
+		print(userExists)
+		if err != nil {
+			return err.Response(&c)
+		}
+		if *userExists {
+			return errorCodes.NewErrEmailAlreadyExists().Response(&c)
 		}
 
 		user, err := con.userService.CreateUser(auth)

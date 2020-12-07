@@ -7,8 +7,9 @@
           <label for="emailInput">Email:</label>
         </div>
         <div class="form-right">
-          <input formControlName="email" placeholder="jdoe@example.com" type="email" name="emailInput"
-                 id="emailInput">
+          <input formControlName="email"
+                 placeholder="jdoe@example.com" type="email"
+                 name="emailInput" id="emailInput">
           <div class="input-error" *ngIf="email.invalid && (email.dirty || email.touched)">
 
             <div *ngIf="email.errors.required">
@@ -37,7 +38,7 @@
       </div>
     </div>
     <button class="cta-btn" (click)="login()">Login</button>
-    <button>Create Account</button>
+    <button routerLink="/create-account">Create Account</button>
   </div>
 
   <div class="right">

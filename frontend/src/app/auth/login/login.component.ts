@@ -1,26 +1,28 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from '../auth.service';
+import { Component, OnInit } from '@angular/core';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]),
-    password: new FormControl('', [
-      Validators.required,
-    ]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
   });
 
   constructor(private authService: AuthService) {
     console.log('Hello');
   }
+
   get email(): AbstractControl {
     return this.loginForm.get('email');
   }
@@ -36,7 +38,5 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
