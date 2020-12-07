@@ -1,0 +1,112 @@
+$tablet: 730px;
+$desktop: 930px;
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+
+.wrapper {
+  margin: 0 3em 1.5em 1.5em;
+
+  p {
+    margin-bottom: 0;
+    font-size: 1.5rem;
+  }
+
+  a {
+    text-decoration: underline;
+    font-size: 1.5rem;
+
+  }
+
+
+  .form {
+    margin-top: 2em;
+    display: block;
+
+    .input {
+      @include desktop {
+        display: flex;
+        flex-direction: row;
+        margin: 1.8em 0;
+      }
+    }
+
+
+    .form-left {
+
+      @include desktop {
+        flex: .2;
+      }
+
+      label {
+        font-size: 2rem;
+        @include desktop {
+          margin-right: 1em;
+          float: left;
+          width: 5em;
+          text-align: left;
+        }
+      }
+    }
+
+    .form-right {
+      @include desktop {
+        flex: 1;
+      }
+
+      input {
+        background-color: #CEFAFF;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        margin: .5em 0;
+        padding: .7em;
+        width: 90%;
+
+        border-radius: 10px;
+
+        @include desktop {
+          width: 100%;
+          flex: 3;
+        }
+      }
+    }
+  }
+  button {
+    display: block;
+    margin: 1em 0 .5em 0;
+    width: min-content;
+    border: none;
+    padding: .5em 2em;
+    outline: none;
+    border-radius: 15px;
+    font-size: 2rem;
+    background-color: transparent;
+    color: #3D5AF1;
+    font-weight: bold;
+    font-family: 'Montserrat SemiBold', serif;
+
+    @include desktop {
+      margin-right: 0;
+    }
+  }
+
+  button:active {
+    background-color: #CEFAFF;
+  }
+
+  .cta-btn {
+    background-color: #3D5AF1;
+    color: white;
+  }
+}

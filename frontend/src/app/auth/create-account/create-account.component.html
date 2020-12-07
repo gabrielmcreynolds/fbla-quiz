@@ -1,0 +1,91 @@
+<div class="wrapper">
+  <h1>Create Account</h1>
+  <p>Already have an account?</p>
+  <a href="/" class="logout">Login</a>
+
+  <div [formGroup]="form" class="form">
+
+
+    <div class="input">
+      <div class="form-left">
+        <label for="nameInput">Name:</label>
+      </div>
+
+      <div class="form-right">
+        <input formControlName="name" placeholder="John Doe"
+               name="nameInput" id="nameInput">
+
+        <div class="input-error" *ngIf="name.invalid && (name.dirty || name.touched)">
+
+          <div *ngIf="name.errors.required">
+            Name is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="input">
+      <div class="form-left">
+        <label for="nameInput">Email:</label>
+      </div>
+
+      <div class="form-right">
+        <input type="email" formControlName="email" placeholder="jdoe@gmail.com"
+               name="emailInput" id="emailInput">
+
+        <div class="input-error" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div *ngIf="email.errors.required">
+            Email is required
+          </div>
+          <div *ngIf="email.errors.email">
+            Must be email
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="input">
+      <div class="form-left">
+        <label for="passcode">Passcode:</label>
+      </div>
+
+      <div class="form-right">
+        <input type="password" formControlName="passcode" placeholder="******"
+               name="passcode" id="passcode">
+
+        <div class="input-error" *ngIf="passcode.invalid && (passcode.dirty || passcode.touched)">
+          <div *ngIf="passcode.errors.required">
+            Passcode is required
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="input">
+      <div class="form-left">
+        <label for="confirmPasscode">Confirm Passcode:</label>
+      </div>
+
+      <div class="form-right">
+        <input type="password" formControlName="confirmPasscode" placeholder="******"
+               name="confirmPasscode" id="confirmPasscode">
+
+        <div class="input-error" *ngIf="(confirmPasscode?.invalid && (confirmPasscode.dirty || confirmPasscode.touched))
+|| (form.errors?.samePassword)">
+          <div *ngIf="confirmPasscode.errors.required && (confirmPasscode.dirty || confirmPasscode.touched)">
+           Confirm Passcode is required
+          </div>
+
+          <div *ngIf="form.errors?.samePassword">
+            Passcodes must be the same as confirm passcode
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="cta-btn" (click)="validate()">Create Account</button>
+  </div>
+</div>
