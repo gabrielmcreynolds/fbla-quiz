@@ -39,7 +39,7 @@ export class McDropdownComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.dropDownListObject != null) {
-      this.dropDownListObject.reset(null);
+      this.selectedChoice = null;
     }
   }
 }
