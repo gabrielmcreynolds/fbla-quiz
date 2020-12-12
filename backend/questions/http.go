@@ -1,3 +1,4 @@
+// handles all requests dealing with /questions
 package questions
 
 import (

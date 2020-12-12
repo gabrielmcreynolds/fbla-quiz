@@ -1,3 +1,4 @@
+// Handles all endpoints relating to /users
 package users
 
 import (
