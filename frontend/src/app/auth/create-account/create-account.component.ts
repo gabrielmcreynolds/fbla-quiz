@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { AuthStatus } from '../auth-status.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-account',
@@ -34,7 +35,7 @@ export class CreateAccountComponent implements OnInit {
     return this.form.get('confirmPasscode');
   }
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   form = new FormGroup(
     {
@@ -57,6 +58,9 @@ export class CreateAccountComponent implements OnInit {
           password: this.passcode.value,
         })
         .subscribe((authStatus) => {
+          if (authStatus === AuthStatus.LoggedIn) {
+            this.router.navigate(['/dashboard']);
+          }
           this.incorrectEmail = authStatus === AuthStatus.IncorrectEmail;
         });
     }
