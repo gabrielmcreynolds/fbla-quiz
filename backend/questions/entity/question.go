@@ -2,6 +2,7 @@ package entity
 
 import "fmt"
 
+// Simple Question struct that just handles the data, never processes.
 type Question struct {
 	Question      string        `json:"question" bson:"question"`
 	Choices       []interface{} `json:"choices,omitempty" bson:"choices,omitempty"`

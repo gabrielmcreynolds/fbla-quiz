@@ -14,6 +14,7 @@ import (
 	"time"
 )
 
+// Used to validate http requests
 type CustomValidator struct {
 	validator *validator.Validate
 }
@@ -38,7 +39,9 @@ func main() {
 	defer client.Disconnect(ctx)
 	log.Print("Connected to MongoDB")
 	database := client.Database("fbla")
+	// connected to db
 
+	// start up http handler
 	e := echo.New()
 	e.Validator = &CustomValidator{validator: validator.New()}
 	e.Use(middleware.Logger())

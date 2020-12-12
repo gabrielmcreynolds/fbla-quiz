@@ -1,5 +1,6 @@
 package entity
 
+// The result of a single test
 type TestStats struct {
 	Score int `json:"score" validate:"required"`
 	// in seconds

@@ -5,6 +5,7 @@ import (
 	"backend/questions/entity"
 )
 
+// Driver for database actions
 type Repository interface {
 
 	// Gets five random question from the database

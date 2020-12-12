@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// The full user that includes authentication & stats
 type User struct {
 	ID           primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	Email        string             `json:"email" bson:"email"`
@@ -13,10 +14,11 @@ type User struct {
 	PasswordHash string             `json:"-" bson:"passwordHash"`
 	TestsTaken   int                `json:"testsTaken" bson:"testsTaken"`
 	TotalScores  int                `json:"totalScores" bson:"totalScores"`
-	// in millisecondes
+	// in seconds
 	TotalTime int `json:"totalTime" bson:"totalTime"`
 }
 
+// Authentication only portion of a user
 type Authentication struct {
 	Email    string `json:"email" validate:"required,email"`
 	Name     string `json:"name,omitempty"`

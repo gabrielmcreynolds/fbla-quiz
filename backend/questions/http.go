@@ -11,6 +11,7 @@ import (
 )
 
 func QuestionRoutes(group *echo.Group, database *mongo.Database) {
+	// all endpoints require authentication
 	group.Use(middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey: []byte(os.Getenv("accessSecret")),
 	}))

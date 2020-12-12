@@ -19,6 +19,8 @@ func UserRoutes(group *echo.Group, database *mongo.Database) {
 	group.POST("/signup", handler.CreateUser())
 	group.POST("/login", handler.Login())
 	group.POST("/refresh", handler.Refresh())
+
+	// following endpoints require authentication
 	group.DELETE("/logout", handler.Logout(), middleware.JWTWithConfig(middleware.JWTConfig{
 		SigningKey: []byte(os.Getenv("accessSecret")),
 	}))

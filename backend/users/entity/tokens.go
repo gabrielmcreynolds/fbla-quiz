@@ -9,12 +9,14 @@ import (
 	"time"
 )
 
+// This is a expanded view of the token stored in the database
 type RefreshToken struct {
 	ID          primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	UserId      primitive.ObjectID `json:"userId" bson:"userId"`
 	CreatedByIp string             `json:"createdByIp" bson:"createdByIp"`
 }
 
+// Generates a usable string for frontend to use in requests
 func (token *RefreshToken) GenerateJWT() (string, *errorCodes.Slug) {
 	refreshToken := jwt.New(jwt.SigningMethodHS256)
 	claims := refreshToken.Claims.(jwt.MapClaims)
@@ -46,6 +48,7 @@ func NewRefreshTokenFromJWT(tokenString string) (*RefreshToken, *errorCodes.Slug
 	}
 }
 
+// Token that won't be stored in database and thus can't be revoked
 type AccessToken struct {
 	UserID primitive.ObjectID `json:"userId"`
 	Email  string             `json:"email"`

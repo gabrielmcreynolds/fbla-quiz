@@ -4,6 +4,8 @@ import (
 	"github.com/labstack/echo"
 )
 
+// Handler interfaces http request to functions from [usecases] package
+// All methods are http calls
 type Handler interface {
 	CreateUser() func(c echo.Context) error
 	GetUser() func(c echo.Context) error

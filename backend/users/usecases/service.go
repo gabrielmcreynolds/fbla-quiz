@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// Service takes these functions and is the business logic to accomplishing the tasks
 type Service interface {
 	CreateUser(user *entity.Authentication) (*entity.User, *errorCodes.Slug)
 	Validate(auth *entity.Authentication) (*entity.User, *errorCodes.Slug)

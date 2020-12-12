@@ -6,6 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// Repository is the implementation of database actions
 type Repository interface {
 	// Adds the entity.User to a repository
 	// It returns the new entity.User with the ID field set correctly or an error if there was error.
