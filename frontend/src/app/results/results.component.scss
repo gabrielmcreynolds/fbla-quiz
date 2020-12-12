@@ -24,13 +24,14 @@ $desktop: 930px;
     align-items: center;
 
     @include desktop {
-     display: flex;
+      display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
     }
 
-    button {
+
+    .dashboard {
       color: white;
       padding: .2em 1em;
       background-color: #3D5AF1;
@@ -120,4 +121,19 @@ $desktop: 930px;
       }
     }
   }
+
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+    .print {
+      color: #3D5AF1;
+      background: transparent;
+      font-size: 2rem;
+      margin: 0 auto;
+      outline: none;
+      border: none;
+      text-align: center;
+    }
+  }
+
 }

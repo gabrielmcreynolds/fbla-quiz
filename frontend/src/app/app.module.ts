@@ -18,6 +18,7 @@ import { McDropdownComponent } from './question/questions/mc-dropdown/mc-dropdow
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ResultsComponent } from './results/results.component';
 import { CreateAccountComponent } from './auth/create-account/create-account.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [

@@ -26,4 +26,8 @@ export class ResultsComponent implements OnInit {
         : `${this.questionService.time % 60}`;
     return `${min}:${sec}`;
   }
+
+  printResults(): void {
+    window.print();
+  }
 }

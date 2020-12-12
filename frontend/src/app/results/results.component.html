@@ -1,7 +1,7 @@
 <div class="wrapper">
   <header>
     <h1 class="underline">Results</h1>
-    <button routerLink="/dashboard">Dashboard</button>
+    <button class="dashboard" routerLink="/dashboard">Dashboard</button>
   </header>
 
   <ul>
@@ -17,7 +17,7 @@
 
     <li>
       <strong>Percentage</strong>
-      <span>{{correctQuestions / questions.length | percent}}</span>
+      <span>{{(correctQuestions / questions.length) | percent}}</span>
     </li>
   </ul>
 
@@ -36,4 +36,10 @@
       </p>
     </div>
   </div>
+
+  <div class="button-wrapper">
+    <button (click)="printResults()" class="print">Print Results</button>
+  </div>
+
+
 </div>
