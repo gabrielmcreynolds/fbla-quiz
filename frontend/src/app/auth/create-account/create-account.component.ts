@@ -7,7 +7,8 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { ValidateFn } from 'codelyzer/walkerFactory/walkerFn';
+import { AuthService } from '../auth.service';
+import { AuthStatus } from '../auth-status.enum';
 
 @Component({
   selector: 'app-create-account',
@@ -15,6 +16,8 @@ import { ValidateFn } from 'codelyzer/walkerFactory/walkerFn';
   styleUrls: ['./create-account.component.scss'],
 })
 export class CreateAccountComponent implements OnInit {
+  incorrectEmail = false;
+
   get name(): AbstractControl {
     return this.form.get('name');
   }
@@ -31,7 +34,7 @@ export class CreateAccountComponent implements OnInit {
     return this.form.get('confirmPasscode');
   }
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   form = new FormGroup(
     {
@@ -45,11 +48,17 @@ export class CreateAccountComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  validate(): void {
+  createAccount(): void {
     if (this.form.valid) {
-      console.log('Valid');
-    } else {
-      console.log('Invalid');
+      this.authService
+        .createUser({
+          name: this.name.value,
+          email: this.email.value,
+          password: this.passcode.value,
+        })
+        .subscribe((authStatus) => {
+          this.incorrectEmail = authStatus === AuthStatus.IncorrectEmail;
+        });
     }
   }
 }
