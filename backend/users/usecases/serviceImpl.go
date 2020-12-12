@@ -120,7 +120,7 @@ func (s *serviceImpl) RemoveRefreshToken(jwtString string) *errorCodes.Slug {
 	return err
 }
 
-func (s *serviceImpl) AddTest(userId *primitive.ObjectID, testResult *entity.TestResult) (*entity.User, *errorCodes.Slug) {
+func (s *serviceImpl) AddTest(userId *primitive.ObjectID, testResult *entity.TestStats) (*entity.User, *errorCodes.Slug) {
 	user, err := s.repo.FindUserById(userId)
 	if err != nil {
 		return nil, err

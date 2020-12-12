@@ -5,7 +5,6 @@ import (
 	"backend/helpers"
 	"backend/users/entity"
 	"backend/users/usecases"
-	"fmt"
 	"github.com/labstack/echo"
 	"net/http"
 )
@@ -39,14 +38,13 @@ func (con controller) CreateUser() func(c echo.Context) error {
 		auth := new(entity.Authentication)
 		if err := c.Bind(auth); err != nil {
 			return c.JSON(http.StatusBadRequest, helpers.ResponseError{
-				Message:    "Invalid Request",
+				Message:    "Invalid MailTestResultRequest",
 				Resolution: "Make sure the body is JSON with email, name, and password fields",
 				Error:      err,
 			})
 		}
 
 		userExists, err := con.userService.UserExists(auth.Email)
-		print(userExists)
 		if err != nil {
 			return err.Response(&c)
 		}
@@ -86,7 +84,7 @@ func (con controller) Login() func(c echo.Context) error {
 		auth := new(entity.Authentication)
 		if err := c.Bind(auth); err != nil || c.Validate(auth) != nil {
 			return c.JSON(http.StatusBadRequest, helpers.ResponseError{
-				Message:    "Invalid Request",
+				Message:    "Invalid MailTestResultRequest",
 				Resolution: "Make sure the body is JSON with email and password fields",
 				Error:      err,
 			})
@@ -170,14 +168,13 @@ func (con controller) Logout() func(c echo.Context) error {
 
 func (con controller) AddTest() func(c echo.Context) error {
 	return func(c echo.Context) error {
-		body := new(entity.TestResult)
+		body := new(entity.TestStats)
 		if err := c.Bind(body); err != nil || c.Validate(body) != nil {
 			return c.JSON(http.StatusBadRequest, helpers.ResponseError{
 				Message: "Must be a contain a score and duration in body",
 			})
 		}
 		id, _ := helpers.GetUserIdFromCtx(c)
-		fmt.Printf("id: %v", id)
 		user, err := con.userService.AddTest(&id, body)
 		if err != nil {
 			return err.Response(&c)

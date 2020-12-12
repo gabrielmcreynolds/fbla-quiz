@@ -12,7 +12,7 @@ type Service interface {
 	AddRefreshToken(user *entity.User, ip string) (*entity.RefreshToken, *entity.AccessToken, *errorCodes.Slug)
 	RefreshToken(jwt string) (*entity.AccessToken, *errorCodes.Slug)
 	RemoveRefreshToken(jwt string) *errorCodes.Slug
-	AddTest(userId *primitive.ObjectID, testResult *entity.TestResult) (*entity.User, *errorCodes.Slug)
+	AddTest(userId *primitive.ObjectID, testResult *entity.TestStats) (*entity.User, *errorCodes.Slug)
 	GetUser(userId *primitive.ObjectID) (*entity.User, *errorCodes.Slug)
 	UserExists(email string) (*bool, *errorCodes.Slug)
 }
