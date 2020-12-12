@@ -3,10 +3,10 @@ import {
   AbstractControl,
   FormControl,
   FormGroup,
-  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { AuthStatus } from '../auth-status.enum';
 
 @Component({
   selector: 'app-home',
@@ -14,14 +14,15 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
+  emailError = false;
+  passwordError = false;
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private authService: AuthService) {
-    console.log('Hello');
-  }
+  constructor(private authService: AuthService) {}
 
   get email(): AbstractControl {
     return this.loginForm.get('email');
@@ -34,7 +35,18 @@ export class LoginComponent implements OnInit {
   login(): void {
     console.log(this.loginForm.valid);
     if (this.loginForm.valid) {
-      this.authService.login(this.email.value, this.password.value);
+      this.authService
+        .login(this.email.value, this.password.value)
+        .subscribe((authStatus) => {
+          console.log(`AuthStatus: ${AuthStatus[authStatus]}`);
+          if (authStatus === AuthStatus.IncorrectPassword) {
+            this.emailError = false;
+            this.passwordError = true;
+          } else if (authStatus === AuthStatus.IncorrectEmail) {
+            this.emailError = true;
+            this.passwordError = false;
+          }
+        });
     }
   }
 

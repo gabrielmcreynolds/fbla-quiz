@@ -10,13 +10,19 @@
           <input formControlName="email"
                  placeholder="jdoe@example.com" type="email"
                  name="emailInput" id="emailInput">
-          <div class="input-error" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <div class="input-error"
+               *ngIf="(email.invalid &&
+               (email.dirty || email.touched))
+               || emailError">
 
-            <div *ngIf="email.errors.required">
+            <div *ngIf="email.errors?.required">
               Email is required
             </div>
-            <div *ngIf="email.errors.email">
+            <div *ngIf="email.errors?.email">
               Must be email.
+            </div>
+            <div *ngIf="emailError">
+              Incorrect Email
             </div>
           </div>
         </div>
@@ -28,10 +34,15 @@
 
         <div class="form-right">
           <input formControlName="password" placeholder="*****" type="password" id="password">
-          <div class="input-error" *ngIf="password.invalid && (password.dirty || password.touched)">
+          <div class="input-error" *ngIf="(password.invalid
+          && (password.dirty || password.touched))
+          || passwordError">
 
-            <div *ngIf="password.errors.required">
+            <div *ngIf="password.errors?.required">
               Password is required
+            </div>
+            <div *ngIf="passwordError">
+              Incorrect Password
             </div>
           </div>
         </div>
