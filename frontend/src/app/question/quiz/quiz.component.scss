@@ -1,18 +1,17 @@
 $tablet: 730px;
 $desktop: 930px;
 
-@mixin tablet {
-  @media (min-width: #{$tablet}) {
-    @content;
-  }
-}
-
 @mixin desktop {
   @media (min-width: #{$desktop}) {
     @content;
   }
 }
 
+@mixin mobile {
+  @media (max-width: #{$desktop}) {
+    @content;
+  }
+}
 .wrapper {
   margin: 0 1em 1em 1em;
 
@@ -63,6 +62,13 @@ $desktop: 930px;
       border: none;
       border-radius: 15px;
       margin: 0 auto;
+
+      @include mobile {
+        width: 80%;
+        text-align: center;
+        padding: .2em 1.5em;
+        font-size: 3rem;
+      }
     }
 
     button[disabled] {
