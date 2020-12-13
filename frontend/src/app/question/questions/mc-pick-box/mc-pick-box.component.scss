@@ -1,3 +1,10 @@
+$desktop: 930px;
+@mixin mobile {
+  @media (max-width: #{$desktop}) {
+    @content;
+  }
+}
+
 .wrapper {
   display: flex;
   flex-flow: column wrap;
@@ -7,6 +14,10 @@
     font-size: 3.5rem;
     font-weight: normal;
     text-align: center;
+
+    @include mobile {
+      font-size: 2rem;
+    }
   }
 
   ul {
@@ -14,6 +25,10 @@
     display: flex;
     flex-flow: row;
     justify-content: center;
+
+    @include mobile {
+      flex-flow: column;
+    }
 
     li {
       cursor: default;
@@ -23,6 +38,10 @@
       font-weight: bold;
       font-size: 2rem;
       margin: 0 .5em 0 .5em;
+
+      @include mobile {
+        margin-top: 1em;
+      }
     }
   }
 }
