@@ -25,15 +25,15 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 
 func main() {
 	// connect to db
-	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("dbString")))
+	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://gabriel:6VgmO49Db8KKk3Rv@testingmean.smyag.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority"))
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	err = client.Connect(ctx)
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err)
 	}
 
 	defer client.Disconnect(ctx)
@@ -53,5 +53,10 @@ func main() {
 	users.UserRoutes(e.Group("/users"), database)
 	questions.QuestionRoutes(e.Group("/questions"), database)
 
-	e.Logger.Fatal(e.Start(":8080"))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	e.Logger.Fatal(e.Start(":" + port))
 }
