@@ -46,7 +46,7 @@ func main() {
 	e.Validator = &CustomValidator{validator: validator.New()}
 	e.Use(middleware.Logger())
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"localhost:4200"},
+		AllowOrigins: []string{"localhost:4200", "https://frontend-xqmdarcdtq-uc.a.run.app"},
 		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept, echo.HeaderAuthorization, echo.HeaderXCSRFToken},
 	}))
 

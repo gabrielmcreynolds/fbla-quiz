@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthData } from './auth-data/auth-data.module';
 import { User } from './user';
 import { AuthStatus } from './auth-status.enum';
 import {
   catchError,
-  map,
   mapTo,
-  switchAll,
-  switchMap,
   tap,
 } from 'rxjs/operators';
 
