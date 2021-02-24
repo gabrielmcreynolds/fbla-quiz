@@ -33,12 +33,10 @@ export class LoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log(this.loginForm.valid);
     if (this.loginForm.valid) {
       this.authService
         .login(this.email.value, this.password.value)
         .subscribe((authStatus) => {
-          console.log(`AuthStatus: ${AuthStatus[authStatus]}`);
           if (authStatus === AuthStatus.IncorrectPassword) {
             this.emailError = false;
             this.passwordError = true;

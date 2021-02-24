@@ -5,11 +5,7 @@ import { Router } from '@angular/router';
 import { AuthData } from './auth-data/auth-data.module';
 import { User } from './user';
 import { AuthStatus } from './auth-status.enum';
-import {
-  catchError,
-  mapTo,
-  tap,
-} from 'rxjs/operators';
+import { catchError, mapTo, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -42,7 +38,6 @@ export class AuthService {
   }
 
   initUser(): void {
-    console.log('Setting user');
     if (localStorage.getItem('refreshToken') != null) {
       this.http.get<{ user: User }>('users').subscribe(
         (data) => {
@@ -61,7 +56,6 @@ export class AuthService {
   }
 
   private clearAuthData(): void {
-    console.log('Clearing auth Data');
     localStorage.clear();
     this.user$.next(null);
     this.accessToken = null;
