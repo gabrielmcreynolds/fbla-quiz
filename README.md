@@ -48,3 +48,9 @@ Not implemented yet.
   * just the same as with backend builds a Docker image.
 * run: `gcloud run deploy --image gcr.io/fbla-quiz-298419/frontend --platform managed`   
   * again like backend this deploys the Docker image to Cloud Run
+
+---
+#Sources & Citations
+Questions based on questions from:
+ 1. https://quizizz.com/admin/quiz/5bb263bbe3b68d001a6efd77/fbla-trivia-20192020
+ 2. https://quizlet.com/61010653/fbla-trivia-questions-flash-cards/
