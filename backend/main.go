@@ -25,7 +25,7 @@ func (cv *CustomValidator) Validate(i interface{}) error {
 
 func main() {
 	// connect to db
-	client, err := mongo.NewClient(options.Client().ApplyURI("mongodb+srv://gabriel:6VgmO49Db8KKk3Rv@testingmean.smyag.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority"))
+	client, err := mongo.NewClient(options.Client().ApplyURI(os.Getenv("dbString")))
 	if err != nil {
 		log.Print(err)
 	}

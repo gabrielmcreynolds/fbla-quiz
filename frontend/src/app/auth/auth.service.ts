@@ -15,14 +15,13 @@ export class AuthService {
     this.authStatusListener.subscribe(
       (value) => (this.isAuthenticated = value)
     );
-    this.user$ = new BehaviorSubject<User>(null);
     setTimeout(() => this.initUser(), 100);
   }
 
   private accessToken: string;
   private authStatusListener = new Subject<boolean>();
   private isAuthenticated = false;
-  private user$: Subject<User>;
+  private user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   private static saveAuthData(refreshToken: string, accessToken: string): void {
     localStorage.setItem('refreshToken', refreshToken);
@@ -133,6 +132,8 @@ export class AuthService {
       { refreshToken: AuthService.getRefreshToken() }
     );
   }
+
+  getIsAuthenticated = () => this.isAuthenticated;
 
   getUser = () => this.user$.asObservable();
 
