@@ -27,7 +27,11 @@ Corresponds to Uncle Bob's clean architecture. Every component (e.g. users, ques
 Errors are handled through Slugs in the errorCodes folder.
 
 ## Frontend
-Not implemented yet.
+All main data is under the app folder
+* auth folder contains all authentication related services, interceptors, and types as well as auth related screens.
+* dashboard folder contains the dashboard view code
+* questions folder contains all of the different question types and the quiz view
+* results folder contains the results view code.
 
 
 #Deployment
@@ -51,6 +55,6 @@ Not implemented yet.
 
 ---
 #Sources & Citations
-Questions based on questions from:
+Questions adapted from:
  1. https://quizizz.com/admin/quiz/5bb263bbe3b68d001a6efd77/fbla-trivia-20192020
  2. https://quizlet.com/61010653/fbla-trivia-questions-flash-cards/
