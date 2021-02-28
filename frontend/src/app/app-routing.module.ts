@@ -5,7 +5,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { QuizComponent } from './question/quiz/quiz.component';
 import { ResultsComponent } from './results/results.component';
 import { CreateAccountComponent } from './auth/create-account/create-account.component';
-import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -13,14 +12,18 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard],
   },
-  { path: 'quiz', component: QuizComponent, canActivate: [AuthGuard] },
-  { path: 'results', component: ResultsComponent, canActivate: [AuthGuard] },
+  { path: 'quiz', component: QuizComponent },
+  { path: 'results', component: ResultsComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      relativeLinkResolution: 'legacy',
+      useHash: true,
+    }),
+  ],
   exports: [RouterModule],
   // providers: [AuthGuard]
 })
