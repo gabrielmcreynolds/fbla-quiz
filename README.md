@@ -10,9 +10,6 @@ To run this program locally follow these steps:
 1. Run the following Go command: `go run backend/main.go`
 1. Cd into the frontend directory and then run `ng serve --open`
 
-# Documentation
-Not implement yet
-
 # Structure
 This is how everything is structured
 
