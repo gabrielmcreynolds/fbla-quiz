@@ -1,0 +1,528 @@
+[
+  {
+    "_id": {
+      "$oid": "5f8643e1c2c26c86b270aae8"
+    },
+    "question": "What is the first line of the FBLA creed",
+    "correctChoice": "I believe education is the right of every person",
+    "choices": [
+      "I believe education is the right of every person",
+      "FBLA is founded on honor, respect, and high achievement.",
+      "I believe competition is the right of every person",
+      "FBLA is founded on serving our community through our achievements"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5f88db5aae4c318e1c470aaa"
+    },
+    "question": "What kind of attire is acceptable for FBLA activities?",
+    "correctChoice": "Business Attire"
+  },
+  {
+    "_id": {
+      "$oid": "5f88db9dae4c318e1c470aab"
+    },
+    "question": "Does the FBLA primarily support March Of Dimes as a charitable organization?",
+    "correctChoice": true
+  },
+  {
+    "_id": {
+      "$oid": "5f88dbf6ae4c318e1c470aac"
+    },
+    "question": "How many FBLA administrative regions are there?",
+    "correctChoice": "5",
+    "choices": [
+      "5",
+      "2",
+      "7",
+      "11"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5f88dc3bae4c318e1c470aad"
+    },
+    "question": "What parliamentary procedures(off which book) do FBLA meetings follow?",
+    "correctChoice": "Robert's Rules",
+    "choices": [
+      "Robert's Rules",
+      "Jack's Rules",
+      "Mark's Rules",
+      "Henry's Rules"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5f88dc92ae4c318e1c470aae"
+    },
+    "question": "What is the outline written every Auguset detailing the state chapter's tasks and goals?",
+    "correctChoice": "Program of Work"
+  },
+  {
+    "_id": {
+      "$oid": "5f88dcbeae4c318e1c470aaf"
+    },
+    "question": "13 People currently serve on the NJ FBLA Executive Board.",
+    "correctChoice": false
+  },
+  {
+    "_id": {
+      "$oid": "5f88dd48ae4c318e1c470ab0"
+    },
+    "question": "Where was the FBLA-PBL state office located until 1967?",
+    "correctChoice": "Montclair State College",
+    "choices": [
+      "Duke University",
+      "Montclair State College",
+      "Wichita State University",
+      "In Hamden L. Forkner's basement"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "5f88ddedae4c318e1c470ab1"
+    },
+    "question": "The concept of FBLA was developed at what university?",
+    "correctChoice": "Columbia University",
+    "choices": [
+      "Rider College",
+      "Montclair State College",
+      "Columbia University",
+      "UW Lacrosse"
+    ]
+  },
+  {
+    "_id": {
+      "$oid": "603ac82554ae9a9d618c7b3b"
+    },
+    "question": "Where was the FBLA-PBL state office located until 1967?",
+    "choices": [
+      "Carnegie Mellon University",
+      "Montclair State College",
+      "Duke University",
+      "Dordt College"
+    ],
+    "correctChoice": "Montclair State College"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b3c"
+    },
+    "question": "Where was the FBLA-PBL state office located at from 1967 to 1994?",
+    "choices": [
+      "Wisconsin-Stout University",
+      "The local courthouse",
+      "Beloit College",
+      "Rider College"
+    ],
+    "correctChoice": "Rider College"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b3d"
+    },
+    "question": "The concept of FBLA was developed at Stanford.",
+    "correctChoice": false
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b3e"
+    },
+    "question": "FBLA started out as a _________ organization.",
+    "correctChoice": "collegiate"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b3f"
+    },
+    "question": "What were the first four kinds of FBLA membership?",
+    "choices": [
+      "Active, Associate, Collegiate, and Honorary",
+      "Active, Unactive, Collegiate, and Junior",
+      "Low, Medium, High, Very High",
+      "Temporary, Active, Collegiate, and Honorary"
+    ],
+    "correctChoice": "Active, Associate, Collegiate, and Honorary"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b40"
+    },
+    "question": "When was the first FBLA NLC event held?",
+    "choices": [
+      "June 1964",
+      "May 1952",
+      "March 1950",
+      "December 1987"
+    ],
+    "correctChoice": "May 1952"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b41"
+    },
+    "question": "The first fBLA NLC event was held at Conrad Hilton Hotel in Chicago.",
+    "correctChoice": true
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b42"
+    },
+    "question": "Who founded the Alumni Division?",
+    "correctChoice": "James Price"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b43"
+    },
+    "question": "When was the Alumni Division founded?",
+    "choices": [
+      "1967",
+      "1971",
+      "1975",
+      "1979"
+    ],
+    "correctChoice": "1979"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b44"
+    },
+    "question": "When did the Fall Virtual Business Finance Challenge begin?",
+    "choices": [
+      "January 13",
+      "October 21",
+      "December 14",
+      "June 8"
+    ],
+    "correctChoice": "October 21"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b45"
+    },
+    "question": "Regional Competitive Events are held on December 8-12.",
+    "correctChoice": false
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b46"
+    },
+    "question": "What date of the year is American Enterprise Day?",
+    "correctChoice": "November 15"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b47"
+    },
+    "question": "November is known as what month?",
+    "choices": [
+      "Cancer Awareness Month",
+      "American Heart Month",
+      "Prematurity Awareness Month",
+      "National Kidney Month"
+    ],
+    "correctChoice": "Prematurity Awareness Month"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b48"
+    },
+    "question": "When is the March of Dimes World Prematurity Day?",
+    "choices": [
+      "November 10",
+      "November 11",
+      "November 13",
+      "November 17"
+    ],
+    "correctChoice": "November 17"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b49"
+    },
+    "question": "National Community Service Day is February 15th",
+    "correctChoice": true
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b4a"
+    },
+    "question": "What month is February known as?",
+    "correctChoice": "National Career and Technical Education Month"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b4b"
+    },
+    "question": "Who is the current FBLA-PBL National President & CEO?",
+    "choices": [
+      "Alexander Graham",
+      "Sam Kessler",
+      "Kelly Scholl",
+      "Aric Mills"
+    ],
+    "correctChoice": "Alexander Graham"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b4c"
+    },
+    "question": "Who developed the concept of FBLA?",
+    "choices": [
+      "Ashlee Woodson",
+      "Hamden Forkner",
+      "Gayle Robinson",
+      "Eric Jones"
+    ],
+    "correctChoice": "Hamden Forkner"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b4d"
+    },
+    "question": "A local chapter with 99 members would be entitled to 5 National Leadership Conference voting delegates?",
+    "correctChoice": false
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b4e"
+    },
+    "question": "What are the FBLA colors?",
+    "correctChoice": "Blue and Gold"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b4f"
+    },
+    "question": "In what month is FBLA week",
+    "choices": [
+      "February",
+      "April",
+      "March",
+      "May"
+    ],
+    "correctChoice": "February"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b50"
+    },
+    "question": "What are the three words on the FBLA emblem?",
+    "choices": [
+      "Service, Education, and Leadership",
+      "Service, Education, and Progress",
+      "Service, Leadership, and Prosperity",
+      "Progress, Leadership, and Education"
+    ],
+    "correctChoice": "Service, Education, and Leadership"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b51"
+    },
+    "question": "The three categries of competitive events are: individual, team, and chapter.",
+    "correctChoice": true
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b52"
+    },
+    "question": "What is the official FBLA website?",
+    "correctChoice": "www.fbla-pbl.org"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b53"
+    },
+    "question": "Which of the following is not an official publication of FBLA-PBL",
+    "choices": [
+      "Tomorrow's Business Leader",
+      "Business Leaders of Tomorrow",
+      "FBLA Adviser's Hotline",
+      "The PBL Business Leader"
+    ],
+    "correctChoice": "Business Leaders of Tomorrow"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b54"
+    },
+    "question": "Where was the first FBLA local chapter organized",
+    "choices": [
+      "Knoxville, TN",
+      "Cedar Rapids, IA",
+      "Miami, FL",
+      "Johnson City, TN"
+    ],
+    "correctChoice": "Johnson City, TN"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b55"
+    },
+    "question": "The Georgia FBLA State Rally is held each year in Macon, GA",
+    "correctChoice": false
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b56"
+    },
+    "question": "When must dues be received to qualify for competitive events?",
+    "choices": [
+      "April 1",
+      "April 15",
+      "March 1",
+      "March 15"
+    ],
+    "correctChoice": "March 1"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b57"
+    },
+    "question": "FBLA involves nearly how many members?",
+    "choices": [
+      "250,000",
+      "200,000",
+      "350,000",
+      "180,000"
+    ],
+    "correctChoice": "250,000"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b58"
+    },
+    "question": "The first FBLA State Chapter was in Iowa.",
+    "correctChoice": true
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b59"
+    },
+    "question": "The FBLA-PBL National Center is located where?",
+    "correctChoice": "Reston, VA"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b5a"
+    },
+    "question": "When was the FBLA Middle Level Division established?",
+    "choices": [
+      "1991",
+      "1994",
+      "1993",
+      "1992"
+    ],
+    "correctChoice": "1994"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b5b"
+    },
+    "question": "How many goals does FBLA-PBL have?",
+    "choices": [
+      "11",
+      "7",
+      "9",
+      "5"
+    ],
+    "correctChoice": "9"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b5c"
+    },
+    "question": "What is the fiscal year of FBLA-PBL",
+    "correctChoice": "July 1 - June 30"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b5d"
+    },
+    "question": "Joining a student organization will not help promote leadership development",
+    "correctChoice": false
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b5e"
+    },
+    "question": "What does CTSO stand for?",
+    "choices": [
+      "Career & Technical Student Organizations",
+      "Consumer & Technical Student Organizations",
+      "Computer & Training Student Organizations",
+      "Crossfit & Training Student Organizations"
+    ],
+    "correctChoice": "Career & Technical Student Organizations"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b5f"
+    },
+    "question": "What is the color of candle that represents the chapter?",
+    "choices": [
+      "blue",
+      "red",
+      "orange",
+      "white"
+    ],
+    "correctChoice": "white"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b60"
+    },
+    "question": "Dr. Edward Millar was the first executive director of FBLA-PBL",
+    "correctChoice": true
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b61"
+    },
+    "question": "Who is the Conference Director of FBLA-PBL?",
+    "correctChoice": "Richard Bowen"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b62"
+    },
+    "question": "Who is the Director of Membership for FBLA-PBL",
+    "choices": [
+      "Lisa Smothers",
+      "John Harris",
+      "Mark Smith",
+      "Conrad Hilton"
+    ],
+    "correctChoice": "Lisa Smothers"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b63"
+    },
+    "question": "Who is the Director of Education for FBLA-PBL",
+    "choices": [
+      "Han Harry",
+      "John Keith",
+      "Barbara Small",
+      "Kennedy Jacks"
+    ],
+    "correctChoice": "Barbara Small"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b64"
+    },
+    "question": "What animal is on the FBLA emblem?",
+    "correctChoice": "Eagle"
+  },
+  {
+    "_id": {
+      "$oid": "603ac82954ae9a9d618c7b65"
+    },
+    "question": "FBlA-PBL is mostly funded through swag sales.",
+    "correctChoice": false
+  }
+]
